@@ -1,0 +1,42 @@
+<apex:page controller="ExportController">
+    <html>
+        <head>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+            <script>
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ExportController.showResults}', function(result, event) {
+                    console.log(result);
+
+                    // Create HTML table
+                    let htmlTable = '<table id="emp-List" style="display:none">';
+                    htmlTable += '<tr><th>First Name</th><th>Mid Name</th><th>Last Name</th><th>Date of Birth</th><th>Marital Status</th><th>Gender</th><th>Email Id</th> <th>Telephone</th></tr>';
+                    for (var i = 0; i < result.length; i++) {
+                        htmlTable += '<tr>';
+                        htmlTable += '<td>' + result[i].Emp_firstName__c + '</td>';
+                        htmlTable += '<td>' + result[i].Emp_midName__c + '</td>';
+                        htmlTable += '<td>' + result[i].Emp_lastName__c + '</td>';
+                        htmlTable += '<td>' + result[i].Emp_dateOfBirth__c + '</td>';
+                        htmlTable += '<td>' + result[i].Emp_maritalStatus__c + '</td>';
+                        htmlTable += '<td>' + result[i].Emp_gender__c + '</td>';
+                        htmlTable += '<td>' + result[i].Emp_emailId__c + '</td>';
+                        htmlTable += '<td>' + result[i].Emp_telephone__c + '</td>';
+                        htmlTable += '</tr>';
+                    }
+                    htmlTable += '</table>';
+                    document.getElementById('table').innerHTML = htmlTable;
+                });
+            function ExportToExcel(){ 
+                    // Create a worksheet directly from the HTML table
+                    var ws = XLSX.utils.table_to_sheet(document.getElementById('emp-List'));
+
+                    // Create a download link and trigger the download
+                    XLSX.writeFile({ Sheets: { 'Sheet1': ws }, SheetNames: ['Sheet1'] }, 'exported_data.xlsx');}
+            </script>
+        </head>
+        <body>
+            <p id="table"></p>
+            <button onClick="ExportToExcel()">
+                Export
+            </button>
+        </body>
+    </html>
+</apex:page>

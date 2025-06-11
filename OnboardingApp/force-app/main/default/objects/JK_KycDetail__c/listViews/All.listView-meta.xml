@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>Kyc_documentType__c</columns>
+    <columns>Kyc_documentNumber__c</columns>
+    <columns>Kyc_nameOnDocument__c</columns>
+    <columns>Kyc_remarks__c</columns>
+    <columns>KycToEmp__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

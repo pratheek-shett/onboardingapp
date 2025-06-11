@@ -1,0 +1,10 @@
+<apex:page >
+    <apex:sectionHeader title="Employee Information Form"/>
+    <apex:form >
+    	<apex:pageBlock title="Kindly fill in the details" mode="Edit">
+    		<apex:pageBlockButtons >
+                <apex:commandButton value="save"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

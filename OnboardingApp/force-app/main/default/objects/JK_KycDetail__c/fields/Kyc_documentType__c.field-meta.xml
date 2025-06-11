@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Kyc_documentType__c</fullName>
+    <externalId>false</externalId>
+    <label>Kyc_documentType</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Bank Account (ICICI)</fullName>
+                <default>false</default>
+                <label>Bank Account (ICICI)</label>
+            </value>
+            <value>
+                <fullName>Aadhar Card</fullName>
+                <default>false</default>
+                <label>Aadhar Card</label>
+            </value>
+            <value>
+                <fullName>Pan Card</fullName>
+                <default>false</default>
+                <label>Pan Card</label>
+            </value>
+            <value>
+                <fullName>Voter Card</fullName>
+                <default>false</default>
+                <label>Voter Card</label>
+            </value>
+            <value>
+                <fullName>ESIC Card</fullName>
+                <default>false</default>
+                <label>ESIC Card</label>
+            </value>
+            <value>
+                <fullName>Ration Card</fullName>
+                <default>false</default>
+                <label>Ration Card</label>
+            </value>
+            <value>
+                <fullName>Passport</fullName>
+                <default>false</default>
+                <label>Passport</label>
+            </value>
+            <value>
+                <fullName>UAN</fullName>
+                <default>false</default>
+                <label>UAN</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

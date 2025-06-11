@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EqToEmp__c</fullName>
+    <description>Educational Qualification to Employee relationship</description>
+    <externalId>false</externalId>
+    <label>EQ_EqToEmp</label>
+    <referenceTo>JK_Employee__c</referenceTo>
+    <relationshipLabel>JK_EducationalQualifications</relationshipLabel>
+    <relationshipName>JK_EducationalQualifications</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

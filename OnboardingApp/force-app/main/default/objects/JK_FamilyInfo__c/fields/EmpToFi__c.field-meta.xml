@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EmpToFi__c</fullName>
+    <externalId>false</externalId>
+    <label>EmpToFi</label>
+    <referenceTo>JK_Employee__c</referenceTo>
+    <relationshipLabel>JK_Familys</relationshipLabel>
+    <relationshipName>JK_Familys</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

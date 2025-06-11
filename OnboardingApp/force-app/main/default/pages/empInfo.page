@@ -1,0 +1,17 @@
+<apex:page standardStylesheets="false">
+    
+    <apex:pageBlock >
+    
+<apex:pageBlockSection >
+        <apex:form >
+    User Name: <apex:inputText /> 
+    
+    
+    
+    
+    
+    </apex:form>
+        </apex:pageBlockSection>    
+    
+    </apex:pageBlock>
+</apex:page>

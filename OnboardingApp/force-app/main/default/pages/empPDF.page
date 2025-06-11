@@ -1,0 +1,669 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="pdfController">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <title>Admin Page</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --poppins: 'Poppins', sans-serif;
+            --lato: 'Lato', sans-serif;
+       
+            --light: #F9F9F9;
+            --blue: #3C91E6;
+            --light-blue: #CFE8FF;
+            --grey: #eee;
+            --dark-grey: #AAAAAA;
+            --dark: #342E37;
+            --TransparentBlue:rgba(11,24,76,.85);
+            --secondaryColor:#ca041b;
+        }
+        html,body{
+            font-family: 'Montserrat', sans-serif;;
+            font-weight: 400;
+            overflow-x: hidden;
+            font-size: 10px;
+        }
+        ::-webkit-scrollbar {
+            width: 7px; /* width of the scrollbar */
+          }
+     
+          /* Track */
+          ::-webkit-scrollbar-track {
+            background: var(--dark-grey); /* color of the track */
+          }
+     
+          /* Handle */
+          ::-webkit-scrollbar-thumb {
+            background:var(--TransparentBlue); /* color of the handle */
+            border-radius: 6px; /* roundness of the handle */
+          }
+          .main{
+            width: 100vw;
+            min-height: 100vh;
+            position: absolute;
+          }
+          .navbar{
+            width: 100vw;
+            height: 7.2rem;
+            background-color: var(--TransparentBlue);
+            color: var(--light);
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            align-items: center;
+            position:fixed;
+            z-index: 1000;
+            top:0;
+ 
+            right: 0;
+        }
+        .navbar .left{
+            grid-column:  1 / 3;
+        }
+        .navbar .left h1{
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -.5px;
+            color: var(--light);
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .navbar .right {
+            grid-column: 3 / -1;
+            display: flex;
+            padding: 0rem 2rem;
+            justify-content: flex-end;
+        }
+        .navbar .right .btn{
+            width: 15rem;
+            cursor: pointer;
+            height: 4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-right: 2rem;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.6rem;
+            color: var(--TransparentBlue);
+            border: 1px solid var(--dark-grey);
+            background-color: #fff;
+            transition:all .3s linear;
+        }
+        .employee_info{
+            max-width: 1200px;
+            height: 70vh;
+            background-color: var(--light);
+            margin: 10rem auto;
+            border-radius: 2rem;
+            padding: 2rem 4rem;
+            font-size: 1.6rem;
+        }
+        .button_group{
+            display: flex;
+            justify-content: flex-end;
+            align-self: center;
+        }
+        .button_group .addemp{
+            border: none;
+            color: #fff;
+            background-color: var(--TransparentBlue);
+            padding: 1rem 4rem;
+            font-size: 1.6rem;
+            border-radius: 5px;
+        }
+        .button_group .generatePdf{
+            border: none;
+            color: #fff;
+            background-color: var(--TransparentBlue);
+            padding: 1rem 4rem;
+            font-size: 1.6rem;
+            border-radius: 5px;
+        }
+        .employee_cards{
+            width: 100%;
+            display: grid;
+            background-color:var(--TransparentBlue);
+            color: #fff;
+            grid-template-columns: repeat(11,1fr);
+            padding: 3rem 1rem 2rem 3rem;
+            border-radius: 10px;
+            column-gap: 1rem;
+            row-gap: 2rem;
+            margin-top: 2rem ;
+        }
+        .input_div_1{
+            grid-column:1/4 ;
+        }
+        .input_div_2{
+            grid-column: 4/7;
+        }
+        .input_div_3{
+            grid-column: 7/-1;
+            display: flex;
+            justify-content: space-between;
+        }
+        .progress_div{
+            display: flex;
+            flex-direction: column;
+        }
+        .progress_div label,
+        .input_div label{
+            display: block;
+           
+        }  
+        .input_div input{
+            width: 25rem;
+            height: 4rem;
+            font-size: 1.6rem;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            color: #999;
+            padding-left: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .input_div input:focus{
+            border:2px solid var(--secondaryColor);
+        }
+        /*.progress_group{
+            grid-column: 1/-1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }*/
+        .emp_creation_pb,
+        .emp_form_pb,
+        .emp_verification_pb{
+            width: 15rem;
+            height:1rem;
+            border-radius: 20px;
+            background-color: orange;
+        }
+        .pdf{
+            font-size: 1.6rem;
+            /*grid-column: 7/-2;*/
+            background-color: var(--secondaryColor);
+            color: #fff;
+            height: 4rem;
+            cursor: pointer;
+            width: 15rem;
+            border: none;
+            border-radius: 5px;
+            margin-top: 3.9rem;
+        }
+        .generatePdf{
+            font-size: 1.6rem;
+            /*grid-column: 7/-2;*/
+            background-color: var(--secondaryColor);
+            color: #fff;
+            height: 4rem;
+            cursor: pointer;
+            width: 15rem;
+            border: none;
+            border-radius: 5px;
+            margin-top: 3.9rem;
+        }
+        /*.dropdown{
+            grid-column: -2/-1;
+        }*/
+        .caret{
+            margin-top: 3.9rem;
+            font-size: 3rem;
+            cursor: pointer;
+            color: #eee;
+            transition: all linear .4s;
+        }
+        .pb1{
+            grid-column: 1/4;
+        }
+        .pb2{
+            grid-column: 4/7;
+        }
+        .pb3{
+            grid-column: 7/-2;
+        }
+        .emp_form_pb
+        {
+            background-color: red;
+        }
+        .emp_creation_pb{
+            background-color: green;
+        }
+        .emp_verification_pb{
+            background-color: red;
+        }
+        .employee_dropdown_div{
+            grid-column: 1/-1;
+            display: grid;
+        }
+        .rotate{
+            transform: rotate(180deg);
+        }
+        .icons{
+            display: flex;
+            justify-content: space-between;
+        }
+        .deletebtn{
+            background-color:var(--secondaryColor);
+            border-radius:150rem ;
+            border: none;
+            color:#fff;
+            width: 4rem;
+            height: 4rem;
+        }
+        .deletebtn i{
+            font-size: 1.6rem;
+        }
+        .Popup{
+            position:absolute;
+            left: 0%;
+            top:0%;
+            background-color:rgba(255,255,255,255.5);
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .credentials_div{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--TransparentBlue);
+            width: 70rem;
+            height: 50rem;
+            font-size: 1.6rem;
+            color: #fff;
+        }
+        .credentials_div input{
+            width: 25rem;
+            height: 4rem;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            margin: 1rem 0rem;
+        }
+        .credentials_div button{
+            padding: 1rem 3rem;
+            border: none;
+            color:#fff;
+            border-radius: 5px;
+            font-size: 1.6rem;
+            margin-top: 2rem;
+            background-color: var(--secondaryColor);
+        }
+        .credentials_div .credentials_content{
+            width: 40%;
+            height: 100%;
+            font-size: 1.6rem;
+            padding: 1rem 3rem;
+            position: relative;
+            background-color: var(--secondaryColor);
+        }
+        .credentials_content .cancel{
+            position: absolute;
+            cursor: pointer;
+            right:1rem;
+            top:1rem;
+            font-size: 2rem;
+        }
+        .credentials_content .user{
+            color:#fff;
+            display: block;
+            margin: 15rem auto;
+            text-align: center  ;
+            font-size: 6.4rem;
+        }
+        .credentials_div .credentials_form
+        {
+            padding:2rem 5rem;
+        }
+        .credentials_content_para{
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Popup">
+        <div class="credentials_div">
+            <form class="credentials_form">
+                <label for="">Enter Candidate Email</label><br/>
+                <input id="emailId" type="text"/><br/>
+                <button type="save">Enter</button>
+            </form>
+            <div class="credentials_content">
+                <i class="fa-solid fa-xmark cancel"></i>
+                <i class="fa-solid fa-user user"></i>
+                <p class="credentials_content_para"></p>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <nav class="navbar">
+            <div class="left">
+                <h1>Employee Joining Form</h1>
+            </div>
+            <div class="right">
+                <button class="btn refresh-btn">Refresh</button>
+                <button class="btn">Logout</button>
+            </div>
+        </nav>
+        <section class="employee_info">
+            <div class="button_group">
+                <button class="addemp">Add Employee</button>
+            </div>
+            <div class="employee_cards">
+                <div class="input_div input_div_1">
+                    <label for="">Candidate Id</label><br/>
+                    <input type="text" value="#5447ab"/>
+                </div>
+                <div class="input_div input_div_2">
+                    <label for="">Employee email</label><br/>
+                    <input type="text" value="#5447ab"/>
+                </div>
+                <div class="input_div input_div_3">
+                    <button class="generatePdf">Generate pdf</button>
+                    <button class="pdf">Verify documents</button>
+                    <button class="pdf">Enable edit</button>
+                </div>
+                <div class="progress_div pb1">
+                    <label for="">Employee creation status</label><br/>
+                    <div class="emp_creation_pb"></div>
+                </div>
+                <div class="progress_div pb2">
+                    <label for="">Employee form status</label><br/>
+                    <div class="emp_form_pb"></div>
+                </div>
+                <div class="progress_div pb3">
+                    <label for="">Document verification status</label><br/>
+                    <div class="emp_verification_pb"></div>
+                </div>
+                <div class="icons">
+                    <button class="deletebtn">
+                        <i class="fa-solid fa-key"></i>
+                    </button>
+                    <button class="deletebtn">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <div class="employee_dropdown_div" >
+                    <input type="hidden" class="empId" id="" value=""/>
+                    <input type="hidden" class="empPassword" id="" value=""/>
+                </div>
+            </div>
+            <div class="employee_cards">
+                <div class="input_div input_div_1">
+                    <label for="">Employee Id</label><br/>
+                    <input type="text" value="#5447ab"/>
+                </div>
+                <div class="input_div input_div_2">
+                    <label for="">Employee Name</label><br/>
+                    <input type="text" value="#5447ab"/>
+                </div>
+                <div class="dropdown">
+                    <i class="fa-solid fa-caret-down caret"></i>
+                </div>
+                <div class="progress_div pb1">
+                    <label for="">Employee creation status</label><br/>
+                    <div class="emp_creation_pb"></div>
+                </div>
+                <div class="progress_div pb2">
+                    <label for="">Employee form status</label><br/>
+                    <div class="emp_form_pb"></div>
+                </div>
+                <div class="progress_div pb3">
+                    <label for="">Document verification status</label><br/>
+                    <div class="emp_verification_pb"></div>
+                </div>
+                <div class="employee_dropdown_div">
+                </div>
+            </div> 
+        </section>
+    </div>
+
+<script>
+    console.log("entering script");
+    const genpdf = document.querySelector('.generatePdf');
+    console.log(genpdf);
+    genpdf.addEventListener('click',(e)=>{
+        e.preventDefault();
+        var empId = 'a025h00000t9RnoAAE';
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.pdfController.pdfData}',empId,
+        function(result,event){
+            console.log(result);
+            pdfTable(result);
+        });
+    });
+
+        function pdfTable(result)
+        {
+            var empInfo = ' ';
+            var kycInfo = ' ';
+            var familyInfo = ' ';
+            var educationInfo = ' ';
+            var workExpInfo = ' ';
+
+            kycInfo = kycInfoTable(result.employeeKycInfo);
+            familyInfo = familyInfoTable(result.employeeFamilyInfo);
+            educationInfo = eductaionInfoTable(result.employeeEducationInfo);
+            workExpInfo = workexperienceInfoTable(result.employeeWorkInfo);
+
+            empInfo = ` 
+                    <style>
+                    * {
+                            -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
+                            color-adjust: exact !important;                 /* Firefox 48 – 96 */
+                            print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+                        }
+                        </style>
+                        
+                        <table class="empTable" style="border:1px solid black; border-collapse:collapse; margin-left:auto; margin-right:auto; margin-top:8rem; width:90%; align:center; border:1px solid;">
+                            <caption style="background-color: grey; font-size: 22px;">Employee Information</caption>                    
+                            <tr>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">First Name: ${result.employeeInfo.Emp_firstName__c}</td> 
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Middle Name : ${result.employeeInfo.Emp_midName__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Last Name: ${result.employeeInfo.Emp_lastName__c}</td>
+                            </tr>
+                            <tr>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Date of Birth: ${result.employeeInfo.Emp_dateOfBirth__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Marital status: ${result.employeeInfo.Emp_maritalStatus__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Gender: ${result.employeeInfo.Emp_gender__c}</td>
+                            </tr>
+                            <tr>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Email ID: ${result.employeeInfo.Emp_emailId__c}</td>
+                                <td class="rowHeading" style="font-weight: bold;" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Nationality: ${result.employeeInfo.Emp_nationality__c}</td>
+                            </tr>
+                            <tr>
+                                <td class="rowHeading" style="font-weight: bold;"style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Blood Group: ${result.employeeInfo.Emp_bloodGroup__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">T-shirt Size: ${result.employeeInfo.Emp_tShirtSize__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Food Preference: ${result.employeeInfo.Emp_foodPref__c}</td>
+                            </tr>
+                            <tr>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Telephone: ${result.employeeInfo.Emp_telephone__c}</td>
+                                <td class="rowHeading" colspan="2" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Mobile: ${result.employeeInfo.Emp_mobilePhone__c}</td>
+                            </tr>
+                            <tr>
+                                <td class="rowHeading" colspan="3" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Residential Address: ${result.employeeInfo.Emp_resAddress__c}</td>
+                            </tr>
+                            <tr>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">City: ${result.employeeInfo.Emp_resCity__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">State: ${result.employeeInfo.Emp_resState__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Zipcode: ${result.employeeInfo.Emp_resZipCode__c}</td>
+                            </tr>
+                            <tr>
+                                <td class="rowHeading" colspan="3" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Communication Address: ${result.employeeInfo.Emp_commAddress__c}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">City: ${result.employeeInfo.Emp_commCity__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">State: ${result.employeeInfo.Emp_commState__c}</td>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Zipcode: ${result.employeeInfo.Emp_commZipcode__c}</td>
+                            </tr>
+                        </table>
+                    <br/>
+                ${kycInfo}
+                ${familyInfo}
+                ${educationInfo}
+                ${workExpInfo}
+                `;
+
+                var saveNameAs = result.Emp_firstName__c;
+                openWin(empInfo, saveNameAs);
+            }
+
+        function kycInfoTable(empKycInfo){
+            var kyctemp = `<table class="kycTable" style="border:1px solid black; border-collapse:collapse; margin-left:auto; margin-right:auto; margin-top:8rem; width:90%; align:center; border:1px solid;">
+                                <caption style="background-color: grey; font-size: 22px;">KYC Details</caption>                    
+                                <tr>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">KYC Document Type</td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Name as on Document</td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Document No.</td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Remark if any</td>
+                                </tr>`;
+            if(empKycInfo)
+            {
+                empKycInfo.forEach(info =>{
+                kyctemp += `<tr>
+                                <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.Kyc_documentType__c ? info.Kyc_documentType__c : ' '}</td>
+                                <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.Kyc_nameOnDocument__c ? info.Kyc_nameOnDocument__c : ' '}</td>
+                                <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.Kyc_documentNumber__c ? info.Kyc_documentNumber__c : ' '}</td>
+                                <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.Kyc_remarks__c ? info.Kyc_remarks__c : ' '}</td>
+                            </tr>`;
+                });
+            }
+
+            kyctemp += `
+                </table>
+                <br/>`
+            console.log(kyctemp);
+            return kyctemp;                  
+        }
+
+        function familyInfoTable(empFamInfo){
+            var famtemp = `<table class="familyTable" style="border:1px solid black; border-collapse:collapse; margin-left:auto; margin-right:auto; margin-top:8rem; width:90%; align:center; border:1px solid;">
+                            <caption style="background-color:grey; font-size:20px;">Family Information</caption>                    
+                                <tr>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">First Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Middle Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Last Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">DOB: </td>
+                                </tr>`;
+            if(empFamInfo)
+            {
+                empFamInfo.forEach(info =>{
+                    famtemp += `<tr>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.Fi_firstName__c ? info.Fi_firstName__c : ' '}</td>
+                                    <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.Fi_middleName__c ? info.Fi_middleName__c : ' '}</td>
+                                    <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.Fi_lastName__c ? info.Fi_lastName__c : ' '}</td>
+                                    <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.Fi_dob__c ? info.Fi_dob__c : ' '}</td>
+                            </tr>`;
+                });
+            }
+
+            famtemp += `
+                </table>
+                <br/>`
+            console.log(famtemp);
+            return famtemp;
+        }
+
+        function eductaionInfoTable(empEduInfo)
+        {
+            var edutemp = `<table class="educationTable" style="border:1px solid black; border-collapse:collapse; margin-left:auto; margin-right:auto; margin-top:8rem; width:90%; align:center; border:1px solid;">
+                            <caption style="background-color:grey; font-size:20px;">Educational Details</caption>                    
+                                <tr>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Education Level: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Degree: </td>                                                                
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Board/University: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">School/College Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Year of Passing: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">% Marks: </td>
+                                </tr>`;
+            if(empEduInfo)
+            {
+                empEduInfo.forEach(info =>{
+                    if(info.EQ_educationalLevel__c != 'Post-Graduation'){
+                        edutemp += `<tr>
+                                        <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_educationalLevel__c ? info.EQ_educationalLevel__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_degree__c ? info.EQ_degree__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_boardOrUniversity__c ? info.EQ_boardOrUniversity__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_schoolOrCollegeName__c ? info.EQ_schoolOrCollegeName__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_yearOfPassing__c ? info.EQ_yearOfPassing__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_percentageMarks__c ? info.EQ_percentageMarks__c : ' '}</td>
+                                    </tr>`;
+                    }
+
+                    else{
+                        edutemp += `<tr>
+                                        <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_educationalLevel__c ? info.EQ_educationalLevel__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_postGradDegree__c ? info.EQ_postGradDegree__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_boardOrUniversity__c ? info.EQ_boardOrUniversity__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_schoolOrCollegeName__c ? info.EQ_schoolOrCollegeName__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_yearOfPassing__c ? info.EQ_yearOfPassing__c : ' '}</td>
+                                        <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.EQ_percentageMarks__c ? info.EQ_percentageMarks__c : ' '}</td>
+                                    </tr>`;
+                    }
+                });
+            }
+
+            edutemp += `</table>
+                            <br/>`
+            console.log(edutemp);
+            return edutemp;
+        }
+
+        function workexperienceInfoTable(empWorkInfo)
+        {
+            var worktemp = 
+            `<table class="workExpTable" style="border:1px solid black; border-collapse:collapse; margin-left:auto; margin-right:auto; margin-top:8rem; width:90%; align:center; border:1px solid;">
+                            <caption style="background-color:grey; font-size:20px;">Work Experience</caption>                    
+                                <tr>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Organization Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Designation when leaving: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">From: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">To: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">Reason for Leaving: </td>
+                                </tr>`;
+            if(empWorkInfo)
+            {
+                empWorkInfo.forEach(info =>{
+                    worktemp += `<tr>
+                                    <td class="rowHeading" style="font-weight:bold; border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.WE_organizationName__c ? info.WE_organizationName__c : ' '}</td>
+                                    <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.WE_designationWhenLeaving__c ? info.WE_designationWhenLeaving__c : ' '}</td>
+                                    <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.WE_from__c ? info.WE_from__c : ' '}</td>
+                                    <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.WE_to__c ? info.WE_to__c : ' '}</td>
+                                    <td style="border: 1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left: 5px; padding-right: 5px; text-align:left;">${info.WE_reasonForLeaving__c ? info.WE_reasonForLeaving__c : ' '}</td>
+                            </tr>`;
+                });
+            }
+
+            worktemp += `</table>
+                            <br/>`
+            console.log(worktemp);
+            return worktemp;                  
+        }
+
+        function openWin(empInfo,saveNameAs)
+        {
+    		var myWindow=window.open('','','width=1280,height=720');
+    		myWindow.document.write(empInfo);
+    		myWindow.document.close();
+			myWindow.focus();
+		    myWindow.print();
+            //pdf.save(saveNameAs);
+			myWindow.close();
+		}
+</script>
+</body>      
+</apex:page>

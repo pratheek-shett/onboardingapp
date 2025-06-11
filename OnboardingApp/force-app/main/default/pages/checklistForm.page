@@ -1,0 +1,246 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="checkListController">
+       
+    <head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+       
+
+       
+        p{
+            width:20rem;
+        }
+        .status{
+            margin-left:20rem;
+            padding-bottom: 1rem;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Adjust as needed */
+        }
+       
+      
+       
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <form action="" class="document_checklist">
+        <h2>Documents Required</h2>
+        <p class="status">Availability</p>
+        <div>
+            <p >1. Updated resume / Curriculum Vitae (C.V.)</p>
+            <div class="availability">
+            <label for="resume_yes">Yes</label>
+            <input type="checkbox" name="resume_yes" id="resume"/>
+            
+        </div>
+        </div>
+        <div>
+            <p >2. 6 additional Passport size photographs(Self) with Employee Code and Full name written on the reverse</p>
+            <div class="availability">
+            <label for="photo_yes">Yes</label>
+            <input type="checkbox" name="photo_yes" id="photo" />
+            
+        </div>
+        </div>
+        <div>
+            <p >3.  Photocopy of all Educational Certificates as mentioned in the section “Educational
+                Qualification”in the Employee Joining form</p>
+                <div class="availability">
+            <label for="educational_certificates">Yes</label>
+            <input type="checkbox" name="educational_certificates" id="edu_certificates"/>
+           
+            </div>
+        </div>
+        <div>
+            <p >4. Salary slips of previous company (last 2 months) – if applicable (Original)</p>
+            <div class="availability">
+            <label for="salary_slip">Yes</label>
+            <input type="checkbox" name="salary_slip" id="salary_slip"/>
+           
+            </div>
+        </div>
+        <div>
+            <p >5. PAN Card Copy (Self Attested) with Full Name, Employee Code, Phone/Mobile 
+                number</p>
+                <div class="availability">
+            <label for="pancard">Yes</label>
+            <input type="checkbox" name="pancard" id="pancard"/>
+            
+            </div>
+        </div>
+        <div>
+            <p >6. Proof of Address and Photo Identification Proof - Voter’s ID Card / Driving License / 
+                Passport Copy / Aadhar Card Copy</p>
+                <div class="availability">
+            <label for="address_proof">Yes</label>
+            <input type="checkbox" name="address_proof" id="address_proof"/>
+           
+            </div>
+        </div>
+        <div>
+            <p >7. Provident Fund Nomination and Declaration Form (Form 2) duly filled</p>
+            <div class="availability">
+            <label for="provident_fund">Yes</label>
+            <input type="checkbox" name="provident_fund" id="provident_fund"/>
+            
+            </div>
+        </div>
+        <div>
+            <p >8. Gratuity Nomination Form (Form F) duly filled * pre-filled sample copy enclosed</p>
+            <div class="availability">
+            <label for="gratuity_form">Yes</label>
+            <input type="checkbox" name="gratuity_form" id="gratuity_form"/>
+            
+           </div>
+        </div>
+        <div>
+            <p >9. Signed Acknowledged copy of the Offer Letter / Appointment letter</p>
+            <div class="availability">
+            <label for="offer_letter">Yes</label>
+            <input type="checkbox" name="offer_letter" id="offer_letter"/>
+            
+            </div>
+        </div>
+        <div>
+            <p >10.  Previous Employer Relieving and Experience Letter</p>
+            <div class="availability">
+            <label for="experience_letter">Yes</label>
+            <input type="checkbox" name="experience_letter" id="experience_letter"/>
+           
+            </div>
+        </div>
+        <div>
+            <p >11. Bank Statement – 6 months (Original)</p>
+            <div class="availability">
+            <label for="bank_statement">Yes</label>
+            <input type="checkbox" name="bank_statement" id="bank_statement"/>
+            
+            </div>
+        </div>
+        <div>
+            <p >12. Blood Group Report (Original)</p>
+            <div class="availability">
+            <label for="bloodgroup_report">Yes</label>
+            <input type="checkbox" name="bloodgroup_report" id="bloodgroup_report"/>
+            
+            </div>
+        </div>
+        <div>
+            <p >13. Code of Conduct</p>
+            <div class="availability">
+            <label for="code_of_conduct">Yes</label>
+            <input type="checkbox" name="code_of_conduct" id="code_of_conduct"/>
+            
+                
+         </div>
+            
+    </div>
+       
+            <button type="submit">Save</button>
+    </form>
+
+
+    <script>
+    let empId='a025h00000t9RnoAAE';
+    
+        window.onload = (event) => {
+        fetchCheckList(empId);
+};
+
+        const documentChecklist = document.querySelector('.document_checklist');
+        documentChecklist.addEventListener('submit', (e) => {
+                e.preventDefault();
+            
+                
+
+                console.log('submit document checklist');
+
+                let isResumeAvailable=document.getElementById('resume').checked;
+                console.log(isResumeAvailable)
+
+                let isPhotoAvailable=document.getElementById('photo').checked;
+                console.log(isPhotoAvailable);
+
+                let isEduCertificatesAvailable=document.getElementById('edu_certificates').checked;
+                console.log(isEduCertificatesAvailable)
+
+                let isSalarySlipAvailable=document.getElementById('salary_slip').checked;
+                console.log(isSalarySlipAvailable);
+
+                let isPanCardAvailable=document.getElementById('pancard').checked;
+                console.log(isPanCardAvailable);
+
+                let isAddressProofAvailable=document.getElementById('address_proof').checked;
+                console.log(isAddressProofAvailable);
+
+                let isProvidentFormAvailable=document.getElementById('provident_fund').checked;
+                console.log(isProvidentFormAvailable);
+
+                let isGratuityFormAvailable=document.getElementById('gratuity_form').checked;
+                console.log(isGratuityFormAvailable);
+
+                let isOfferLetterAvailable=document.getElementById('offer_letter').checked;
+                console.log(isOfferLetterAvailable);
+
+                let isExperienceLetterAvailable=document.getElementById('experience_letter').checked;
+                console.log(isExperienceLetterAvailable);
+
+                let isBankStatementAvailable=document.getElementById('bank_statement').checked;
+                console.log(isBankStatementAvailable);
+
+                let isBloodGroupAvailable=document.getElementById('bloodgroup_report').checked;
+                console.log(isBloodGroupAvailable);
+
+                let isCodeOfConductAvailable=document.getElementById('code_of_conduct').checked;
+                console.log(isCodeOfConductAvailable);
+            
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.checkListController.saveCheckList}',empId,
+            isResumeAvailable,isPhotoAvailable, isEduCertificatesAvailable,isSalarySlipAvailable,isPanCardAvailable,isAddressProofAvailable,
+            isProvidentFormAvailable,isGratuityFormAvailable,isOfferLetterAvailable,isExperienceLetterAvailable,
+            isBankStatementAvailable,isBloodGroupAvailable,isCodeOfConductAvailable
+            , function(result,event){
+                console.log(result);
+            });
+            
+
+
+        })
+            
+            
+            function fetchCheckList(){
+            
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.checkListController.fetchCheckList}',empId,
+            function(result,event){
+                console.log(result);
+            if(result==null) return;
+                
+            
+           document.getElementById('resume').checked=result.Emp_isResumeAvailable__c?result.Emp_isResumeAvailable__c:'';
+           document.getElementById('photo').checked=result.Emp_isPhotoAvailable__c?result.Emp_isPhotoAvailable__c:'';
+           document.getElementById('edu_certificates').checked=result.Emp_isEduCertificatesAvailable__c?result.Emp_isEduCertificatesAvailable__c:'';
+           document.getElementById('salary_slip').checked=result.Emp_isSalaryS__c?result.Emp_isSalaryS__c:'';
+           document.getElementById('pancard').checked=result.Emp_isPanCardAvailable__c?result.Emp_isPanCardAvailable__c:'';
+           document.getElementById('address_proof').checked=result.Emp_isProofOfAddressAvailable__c?result.Emp_isProofOfAddressAvailable__c:'';
+           document.getElementById('provident_fund').checked=result.Emp_isPFNominationAvailable__c?result.Emp_isPFNominationAvailable__c:'';
+           document.getElementById('gratuity_form').checked=result.Emp_isGratuityFormAvailable__c?result.Emp_isGratuityFormAvailable__c:'';
+           document.getElementById('offer_letter').checked=result.Emp_isSignedOfferLetterAvailable__c?result.Emp_isSignedOfferLetterAvailable__c:'';
+           document.getElementById('experience_letter').checked=result.Emp_isExperienceLetterAvailable__c?result.Emp_isExperienceLetterAvailable__c:'';
+           document.getElementById('bank_statement').checked=result.Emp_isBankStatementAvailable__c?result.Emp_isBankStatementAvailable__c:'';
+           document.getElementById('bloodgroup_report').checked=result.Emp_isBloodGroupReportAvailable__c?result.Emp_isBloodGroupReportAvailable__c:'';
+           document.getElementById('code_of_conduct').checked=result.Emp_isCodeOfConductAvailable__c?result.Emp_isCodeOfConductAvailable__c:'';
+            
+            
+            });
+            }
+
+    </script>
+</body>
+   
+</apex:page>

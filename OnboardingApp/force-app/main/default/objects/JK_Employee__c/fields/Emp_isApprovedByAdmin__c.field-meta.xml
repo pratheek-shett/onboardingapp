@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Emp_isApprovedByAdmin__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field is checked whenever the admin clicks on the approve button present in the document verification form.</description>
+    <externalId>false</externalId>
+    <label>Emp_isApprovedByAdmin</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

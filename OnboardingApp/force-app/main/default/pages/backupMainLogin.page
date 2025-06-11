@@ -1,0 +1,933 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="backupLogin">
+    
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+        <title>Novigo Joining form</title>
+        <style>
+            :root {
+                --TransparentBlue:rgba(11,24,76,.85);
+                --secondaryColor:#ca041b;
+            }
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html,body{
+                font-family: 'Montserrat', sans-serif;
+                overflow-x: hidden;
+                font-size: 10px;
+                width: 100vw;
+                height: auto;
+                font-weight: 400;
+            }
+            main{
+                width: 100vw;
+                height:100vh;
+                background-image:
+                linear-gradient( rgba(11,24,76,.85),rgba(11,24,76,.85)),url('https://source.unsplash.com/YI_9SivVt_s');
+                background-size: cover;
+                background-repeat: no-repeat;
+                color:#fff;
+            }
+            nav{
+                height: 5vh;
+            }
+            .content{
+                display: flex;
+                height: 95vh;
+                align-items: center;
+                justify-content: space-around;
+                /*max-width: 1500px;  */
+                margin: 0 auto;
+                min-height: 100px;
+            }
+            .main-heading{
+                font-size: 4.8rem;
+                font-weight: 700;
+                color:var(--secondaryColor);
+                letter-spacing: -2px;
+                margin-bottom: 15px;
+            }
+            .sub-heading{
+                font-size: 3.8rem;
+                letter-spacing: -2px;
+            }
+            .main-para{
+                font-size: 3rem;
+                font-weight: 700;
+                color: #999;
+            }
+            .employee-form label{
+                font-size: 1.8rem;
+                color: #999;
+                display: block;
+                font-weight: 500;
+            }
+            .employee-form input{
+                width: 30rem;
+                display: block;
+                height: 4.5rem;
+                font-size: 1.6rem;
+                border: none;
+                border-radius: 5px;
+                outline: none;
+                margin-bottom: 1rem;
+                padding-left: 10px;
+            }
+            .employee-form input:focus{
+                border: 2px solid var(--secondaryColor);
+                padding-left: 10px;
+            }
+            .buttonClass {
+                display: flex;
+                justify-content: space-between;
+            }
+            .loginBtn{
+                width: 15rem;
+                height: 4rem;
+                background-color: #ca041b;
+                border-radius: 5px;
+                outline: none;
+                border: none;
+                color:#ddd;
+                font-weight: 700;
+                font-size: 1.6rem;
+                margin-top: 2rem;
+                cursor: pointer;
+                display:block;
+            }
+            .pdfBtn{
+                width: 15rem;
+                height: 4rem;
+                background-color: #ca041b;
+                border-radius: 5px;
+                outline: none;
+                border: none;
+                color:#ddd;
+                font-weight: 700;
+                font-size: 1.6rem;
+                margin-top: 2rem;
+                cursor: pointer;
+                display: none;
+                /* margin-left: 5px; */
+            }
+            .message{
+                width: 50rem;
+                height:7rem;
+                background-color: rgba(167, 20, 20, 0.9);
+                color: #ddd;
+                position: absolute;
+                top:5%;
+                left:50%;
+                transform: translateX(-50%);
+                font-size: 1.6rem;
+                font-weight: 500;
+                letter-spacing: 1.2px;
+                text-align: center;
+                transition-timing-function: ease;
+                display: none;
+                border-radius: 5px;
+            }
+            .message .flex{
+                height: 6.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 2rem;
+            }
+            .message .flex p{
+                width: 80%;
+                text-align: left;
+            }
+            .message .progressbar{
+                width: 100%;
+                height: .5rem;
+                background-color: var(--TransparentBlue);
+                animation-name: progressbar;
+                animation-duration: 5s;
+            }
+            .messagep{
+                color:#ddd;
+            }
+            
+            .pdfForUser{
+                width: 50rem;
+                height:7rem;
+                background-color: rgba(167, 20, 20, 0.9);
+                color: #ddd;
+                position: absolute;
+                top:5%;
+                left:50%;
+                transform: translateX(-50%);
+                font-size: 1.6rem;
+                font-weight: 500;
+                letter-spacing: 1.2px;
+                text-align: center;
+                transition-timing-function: ease;
+                display: none;
+                border-radius: 5px;
+            }
+            .pdfForUser .pdfClass{
+                height: 6.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 2rem;
+            }
+            .pdfForUser .pdfClass p{
+                width: 80%;
+                text-align: left;
+            }
+            .pdfForUser .progressbar{
+                width: 100%;
+                height: .5rem;
+                background-color: var(--TransparentBlue);
+                animation-name: progressbar;
+                animation-duration: 5s;
+            }
+            .pdfForUserp{
+                color:#ddd;
+            }
+            .cancel{
+                cursor: pointer;
+            }
+            @keyframes progressbar {
+                0%{
+
+                    width: 100%;
+                }
+                100%{
+                    width: 0%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="message">
+                <div class="flex">
+                    <p class='messagep'></p>
+                    <i class="fa-solid fa-xmark cancel"></i>
+                </div>
+                <div class="progressbar"></div>
+            </div>
+            <nav></nav>
+            <div class="content">
+                <div class="left">
+                    <h2 class="sub-heading">Welcome To</h2>
+                    <h1 class="main-heading">Novigo Solutions Private Ltd</h1>
+                    <p class="main-para">Employee Joining Form</p>
+                </div>
+                <div class="right">
+                    <form action="" class="employee-form">
+                        <label for="username">Username:</label><br/>
+                        <input type="text" class="username" /><br/>
+                        <label for="password">Password:</label><br/>
+                        <input type="password" class="password" /><br/>
+                        <div class="buttonClass">
+                            <button type="submit" class="loginBtn">Log in</button>
+                            <button type="button" class="pdfBtn">Download PDF</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+     <script>
+        const form = document.querySelector('.employee-form');
+        const message = document.querySelector('.message');
+        const pdfForUser = document.querySelector('.pdfForUser');
+        const eventmsg = document.querySelector('.messagep');
+        const pdfButton = document.querySelector('.pdfBtn');
+        const loginButton = document.querySelector('.loginBtn');
+        let employeeId='';
+
+        form.addEventListener('submit' , (e)=>{
+            const username = document.querySelector('.username').value;
+            const password = document.querySelector('.password').value;
+            console.log("username",username);
+            console.log("password", password);
+
+            e.preventDefault();
+            eventmsg.innerHTML ='';
+
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.backupLogin.getEmpId}',username,password,
+            function (result,event){
+                employeeId = result;
+                console.log("employee id", employeeId);
+            });
+
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.backupLogin.check}',username,password,
+            function (result,event){
+                let loginType = result;
+                eventmsg.innerHTML = loginType;
+                if(result.includes('Success'))
+                {
+                    loginType = result.split(' ')[0];
+                    eventmsg.innerHTML = loginType;
+                    const ss= result.split(' ')[1];
+                    const ref ='/apex/mainPage?id='+ss;
+                    window.location.href  = ref;
+                    message.style.backgroundColor='green';
+                }
+                else if(result.includes('Admin'))
+                {
+                    loginType = result.split(' ')[0];
+                    eventmsg.innerHTML = loginType;
+                    const ss= result.split(' ')[1];
+                    const ref ='/apex/adminPage?id='+ss;
+                    window.location.href  = ref;
+                    message.style.backgroundColor='green';
+                }
+                else if(result.includes('submitted'))
+                {
+                    loginType = result;
+                    eventmsg.innerHTML = loginType;
+                    const ss = result;
+                    message.style.backgroundColor='red';
+                    loginButton.style.display = 'none';
+                    pdfButton.style.display = 'block';
+                }
+            }); 
+            setTimeout(function(){
+                message.style.display='block';
+            },1000);
+            setTimeout(function(){
+                // Your code to be executed after 5 seconds
+                message.style.display='none';
+            }, 5000);
+        }); 
+
+        pdfButton.addEventListener('click' , (e)=>{
+            e.preventDefault();
+            console.log("empId inside pdf", employeeId);
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.backupLogin.pdfDataForUser}',employeeId,
+            function(result,event){
+                console.log(result);
+                printPDF(result);
+            });
+        });
+
+        document.querySelector('.cancel').addEventListener('click',(e)=>{
+            e.preventDefault();
+            message.style.display='none';
+        });
+
+        //print pdf in black and white
+        function printPDF(result)
+        {
+            loginButton.style.display = 'block';
+            pdfButton.style.display = 'none';
+
+            var printempInfo = '';
+            var printkycInfo = '';
+            var printemergencyInfo = '';
+            var printfamilyInfo = '';
+            var printeducationInfo = '';
+            var printworkExpInfo = '';
+            var printlangInfo = '';
+            var printackInfo = '';
+            var printcheckboxInfo = '';
+            var printofficeInfo = '';
+
+            printkycInfo = printkycInfoTable(result.employeeKycInfo);
+            printemergencyInfo = printemergencyInfoTable(result.employeeInfo);
+            printfamilyInfo = printfamilyInfoTable(result.employeeFamilyInfo);
+            printeducationInfo = printeductaionInfoTable(result.employeeEducationInfo);
+            printworkExpInfo = printworkexperienceInfoTable(result.employeeWorkInfo);
+            printlangInfo = printlanguageInfoTable(result.employeeInfo);
+            printackInfo = printacknowledgeTable(result.employeeInfo);
+            printcheckboxInfo = printcheckboxTable(result.employeeInfo);
+            printofficeInfo = printofficeOnly();
+
+            printempInfo = ` 
+                <style>
+                * {
+                        -webkit-print-color-adjust: exact !important;   
+                        color-adjust: exact !important;                 
+                        print-color-adjust: exact !important;           
+                    }
+                </style>
+                <div style="page-break-after: always;">
+                    <table class="empTable" style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                        <caption style="background-color:#d3d3d3; font-size:20px; color:black">To be filled by HR</caption>
+                        <tr style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                            <th style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px; text-align:left;">Employee Code: </th>
+                            <th style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px; text-align:left;">Date of Joining: </th>
+                            <th style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px; text-align:left;">Employee Photo: </th>
+                        </tr>
+                        <tr style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                            <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px; text-align:left;"></td>
+                            <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px; text-align:left;">${result.employeeInfo.Emp_dateOfJoining__c}</td>
+                            <td style="border:1px solid black; border-collapse: collapse; text-align:center; src:{!URLFOR($Resource.WhiteBackgroundImage, '')}"><img height="80px" width="80px"></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table class="empTable" style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                        <caption style="background-color:#d3d3d3;  color:black; font-size:20px;">Employee Information</caption>                    
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">First Name:</td> 
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_firstName__c ? result.employeeInfo.Emp_firstName__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Middle Name: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_midName__c ? result.employeeInfo.Emp_midName__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Last Name: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_lastName__c ? result.employeeInfo.Emp_lastName__c : ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Date of Birth:</td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_dateOfBirth__c ? result.employeeInfo.Emp_dateOfBirth__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Marital status:</td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_maritalStatus__c ? result.employeeInfo.Emp_maritalStatus__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Gender:</td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_gender__c ? result.employeeInfo.Emp_gender__c : ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;" >Email ID: </td>
+                            <td class="rowValue" colspan="2" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_emailId__c ? result.employeeInfo.Emp_emailId__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;" >Nationality: </td>
+                            <td class="rowValue" colspan="2" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_nationality__c ? result.employeeInfo.Emp_nationality__c : ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Blood Group:</td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_bloodGroup__c ? result.employeeInfo.Emp_bloodGroup__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">T-shirt Size :</td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_tShirtSize__c ? result.employeeInfo.Emp_tShirtSize__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Food Preference:</td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_foodPref__c ? result.employeeInfo.Emp_foodPref__c : ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Telephone:</td>
+                            <td class="rowValue" colspan="2" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_telephone__c ? result.employeeInfo.Emp_telephone__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Mobile:</td>
+                            <td class="rowValue" colspan="2" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_mobilePhone__c ? result.employeeInfo.Emp_mobilePhone__c : ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Residential Address: </td>
+                            <td class="rowValue" colspan="5" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_resAddress__c ? result.employeeInfo.Emp_resAddress__c : ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">City: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_resCity__c ? result.employeeInfo.Emp_resCity__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">State: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_resState__c ? result.employeeInfo.Emp_resState__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Zipcode: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_resZipCode__c ? result.employeeInfo.Emp_resZipCode__c : ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Communication Address: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;" colspan="5">${result.employeeInfo.Emp_commAddress__c ? result.employeeInfo.Emp_commAddress__c : ''}</td>
+                        </tr>
+                        <tr>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">City: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_commCity__c ? result.employeeInfo.Emp_commCity__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">State: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_commState__c ? result.employeeInfo.Emp_commState__c : ''}</td>
+                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Zipcode: </td>
+                            <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${result.employeeInfo.Emp_commZipCode__c ? result.employeeInfo.Emp_commZipCode__c : ''}</td>
+                        </tr>
+                    </table>
+                <br/>
+                
+                ${printfamilyInfo}
+                ${printemergencyInfo}
+                ${printlangInfo}
+                ${printkycInfo}
+                ${printeducationInfo}
+                ${printworkExpInfo}
+                ${printackInfo}
+                ${printcheckboxInfo}
+                ${printofficeInfo}
+            `;
+            printpdftemplate(printempInfo);
+        }
+        function printkycInfoTable(empKycInfo)
+        {
+            var kyctemp = `
+                                <table class="kycTable" style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                    <caption style="background-color:#d3d3d3; color:black; font-size: 22px;">KYC Details</caption>                    
+                                    <tr>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">KYC Document Type</td>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Name as on Document</td>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Document No.</td>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Remark if any</td>
+                                    </tr>`;
+            if(empKycInfo)
+            {
+                empKycInfo.forEach(info =>{
+                kyctemp += `<tr>
+                                <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Kyc_documentType__c ? info.Kyc_documentType__c : ''}</td>
+                                <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Kyc_nameOnDocument__c ? info.Kyc_nameOnDocument__c : ''}</td>
+                                <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Kyc_documentNumber__c ? info.Kyc_documentNumber__c : ''}</td>
+                                <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Kyc_remarks__c ? info.Kyc_remarks__c : ''}</td>
+                            </tr>`;
+                });
+            }
+
+            kyctemp += `</table></div><br/>`
+            return kyctemp;                  
+        }
+        function printemergencyInfoTable(emergencyInfo)
+        {
+            var emergencyTemp = `<div style="page-break-after: always;">
+                                    <table class="emergencyContactTable" style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                    <caption style="background-color:#d3d3d3; color:black; font-size: 22px;">Emergency Contact Details</caption>                    
+                                        <tr>
+                                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Name of the Person: </td>
+                                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Relationship: </td>
+                                            <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Phone: </td>
+                                        </tr>;
+                                    <tr>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${emergencyInfo.Emp_Emergency__c ? emergencyInfo.Emp_Emergency__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${emergencyInfo.Emp_EmergencyContact_Relation__c ? emergencyInfo.Emp_EmergencyContact_Relation__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${emergencyInfo.Emp_EmergencyContact_Phone__c ? emergencyInfo.Emp_EmergencyContact_Phone__c : ''}</td>
+                                    </tr>
+                                </table>
+                                <br/>`;
+            return emergencyTemp;                  
+        }
+        function printfamilyInfoTable(empFamInfo)
+        {
+            var famtemp = `<table class="familyTable" style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                <caption style="background-color:#d3d3d3; color:black; font-size:20px;">Family Information</caption>                    
+                                <tr>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Relation: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">First Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Middle Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Last Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">DOB: </td>
+                                </tr>`;
+            if(empFamInfo)
+            {
+                empFamInfo.forEach(info =>{
+                    famtemp += `<tr>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Fi_relation__c ? info.Fi_relation__c : ''}</td>
+                                    <td class="rowHeading" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Fi_firstName__c ? info.Fi_firstName__c : ''}</td>
+                                    <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Fi_middleName__c ? info.Fi_middleName__c : ''}</td>
+                                    <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Fi_lastName__c ? info.Fi_lastName__c : ''}</td>
+                                    <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.Fi_dob__c ? info.Fi_dob__c : ''}</td>
+                            </tr>`;
+                });
+            }
+
+            famtemp += `</table></div><br/>`
+            return famtemp;
+        }
+        function printeductaionInfoTable(empEduInfo)
+        {
+            var edutemp = `<div style="page-break-after: always;">
+                                <table class="educationTable" style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                    <caption style="background-color:#d3d3d3; color:black; font-size:20px;">Educational Details</caption>                    
+                                    <tr>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Education Level: </td>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Degree: </td>                                                                
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Board/University: </td>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">School/College Name: </td>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Year of Passing: </td>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">CGPA / %: </td>
+                                    </tr>`;
+            if(empEduInfo)
+            {
+                empEduInfo.forEach(info =>{
+                    if(info.EQ_educationalLevel__c == 'Post-Graduation'){
+                        edutemp += `<tr>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_educationalLevel__c ? info.EQ_educationalLevel__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_postGradDegree__c ? info.EQ_postGradDegree__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_boardOrUniversity__c ? info.EQ_boardOrUniversity__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_schoolOrCollegeName__c ? info.EQ_schoolOrCollegeName__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_yearOfPassing__c ? info.EQ_yearOfPassing__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_percentageMarks__c ? info.EQ_percentageMarks__c : ''}</td>
+                                    </tr>`;
+                    }
+                    else if(info.EQ_educationalLevel__c == 'Other'){
+                        edutemp += `<tr>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_educationalLevel__c ? info.EQ_educationalLevel__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_specialisation__c ? info.EQ_specialisation__c : 'NA'}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_boardOrUniversity__c ? info.EQ_boardOrUniversity__c : 'NA'}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_schoolOrCollegeName__c ? info.EQ_schoolOrCollegeName__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_yearOfPassing__c ? info.EQ_yearOfPassing__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_percentageMarks__c ? info.EQ_percentageMarks__c : ''}</td>
+                                    </tr>`;
+                    }
+                    else{
+                        edutemp += `<tr>
+                                        <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_educationalLevel__c ? info.EQ_educationalLevel__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_degree__c ? info.EQ_degree__c : 'NA'}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_boardOrUniversity__c ? info.EQ_boardOrUniversity__c : 'NA'}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_schoolOrCollegeName__c ? info.EQ_schoolOrCollegeName__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_yearOfPassing__c ? info.EQ_yearOfPassing__c : ''}</td>
+                                        <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.EQ_percentageMarks__c ? info.EQ_percentageMarks__c : ''}</td>
+                                    </tr>`;
+                    }
+                });
+            }
+            edutemp += `</table><br/>`
+            return edutemp;
+        }
+        function printworkexperienceInfoTable(empWorkInfo)
+        {
+            var worktemp = `
+                                <table class="workExpTable" style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                <caption style="background-color:#d3d3d3; color:black; font-size:20px;">Work Experience</caption>                    
+                                <tr>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Organization Name: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Designation when leaving: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">From: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">To: </td>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Reason for Leaving: </td>
+                                </tr>`;
+            if(empWorkInfo)
+            {
+                empWorkInfo.forEach(info =>{
+                    worktemp += `<tr>
+                                    <td class="rowHeading" style="font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.WE_organizationName__c ? info.WE_organizationName__c : ''}</td>
+                                    <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.WE_designationWhenLeaving__c ? info.WE_designationWhenLeaving__c : ''}</td>
+                                    <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.WE_from__c ? info.WE_from__c : ''}</td>
+                                    <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.WE_to__c ? info.WE_to__c : ''}</td>
+                                    <td class="rowValue" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">${info.WE_reasonForLeaving__c ? info.WE_reasonForLeaving__c : ''}</td>
+                            </tr>`;
+                });
+            }
+
+            worktemp += `</table><br/>`
+            return worktemp;                  
+        }
+        function printlanguageInfoTable(empLangInfo)
+        {
+            var langtemp = `<table class="workExpTable" style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                    <caption style="background-color:#d3d3d3; color:black; font-size:20px;">Language Preference</caption>   
+                                    <tr>
+                                        <th colspan="3" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Language 1: ` + (empLangInfo.Emp_lang1__c ? empLangInfo.Emp_lang1__c : '') +`</th>
+                                        <th colspan="3" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Language 2: ` + (empLangInfo.Emp_lang2__c ? empLangInfo.Emp_lang2__c : '') +`</th>
+                                        <th colspan="3" style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Language 3: ` + (empLangInfo.Emp_lang3__c ? empLangInfo.Emp_lang3__c : '') +`</th>
+                                    </tr>                 
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang1r" name="lang1r" onclick="return false" ` + ((empLangInfo.Emp_lang1Read__c) ? 'checked' : '') + `>
+                                            <label for="lang">Read</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang1w" name="lang1w" onclick="return false" ` + ((empLangInfo.Emp_lang1Write__c) ? 'checked' : '') + `>
+                                            <label for="lang">Write</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang1s" name="lang1s" onclick="return false" ` + ((empLangInfo.Emp_lang1Speak__c) ? 'checked' : '') + `>
+                                            <label for="lang">Speak</label>
+                                        </td>
+
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang2r" name="lang2r" onclick="return false" ` + ((empLangInfo.Emp_lang2Read__c) ? 'checked' : '') + `>
+                                            <label for="lang">Read</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang2w" name="lang2w" onclick="return false" ` + ((empLangInfo.Emp_lang2Write__c) ? 'checked' : '') + `>
+                                            <label for="lang">Write</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang2s" name="lang2s" onclick="return false" ` + ((empLangInfo.Emp_lang2Speak__c) ? 'checked' : '') + `>
+                                            <label for="lang">Speak</label>
+                                        </td>
+
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang3r" name="lang3r" onclick="return false" ` + ((empLangInfo.Emp_lang3Read__c) ? 'checked' : '') + `>
+                                            <label for="lang">Read</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang3w" name="lang3w" onclick="return false" ` + ((empLangInfo.Emp_lang3Write__c) ? 'checked' : '') + `>
+                                            <label for="lang">Write</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="lang3s" name="lang3s" onclick="return false" ` + ((empLangInfo.Emp_lang3Speak__c) ? 'checked' : '') + `>
+                                            <label for="lang">Speak</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            <br/>`;
+            return langtemp;
+        }
+        function printacknowledgeTable(acknowledgeInfo)
+        {
+            var ackInfo = `<table style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                <caption style="background-color:#d3d3d3; color:black; font-size:20px;">PLEASE READ CAREFULLY AND ACKNOWLEDGE THAT YOU UNDERSTAND AND ACCEPT THIS INFORMATION</caption>                    
+                                <tr>
+                                    <td  colspan="3" style="border:1px solid black; border-collapse:collapse; padding-left:5px;">
+                                        I, <b>${acknowledgeInfo.Emp_firstName__c} ${acknowledgeInfo.Emp_midName__c ? acknowledgeInfo.Emp_midName__c: ''} ${acknowledgeInfo.Emp_lastName__c + ''}</b> 
+                                        certify that the above statements made by me are true, complete and correct. 
+                                        In case of the company finds at any time that the information given by me in this form is not correct, 
+                                        true or complete, the company will have the right to withdraw my letter of appointment or to terminate 
+                                        my appointment at any time without notice or compensation. 
+                                        I here by acknowledge that I have gone through the Service Rules, understood & accepted the same.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30" style="border:1px solid black; border-collapse:collapse; padding-left:5px;">Signature of the employee: </td>
+                                    <td height="30" style="border:1px solid black; border-collapse:collapse; padding-left:5px;">Date: </td>
+                                    <td height="30" style="border:1px solid black; border-collapse:collapse; padding-left:5px;">Place: </td>
+                                </tr>
+                            </table></div><br/>`;
+            return ackInfo;
+        }
+        function printcheckboxTable(checkboxInfo)
+        {
+            var checkboxTemp = `<div style="page-break-after: always;">
+                                    <table style="margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                    <caption style="background-color:#d3d3d3; color:black; font-size:20px;">Submit the document Check List along with your Employee Joining form</caption>                    
+                                    <tr>
+                                        <th style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:5px; padding-left:5px;">Documents Required (Mandatory)</th>
+                                        <th style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Boxed to be checked by the employee at the time of submission</th>
+                                        <th style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Verified by Novigo Solutions on collections of documents</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">1. Updated resume / Curriculum Vitae (C.V.)</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesRes" name="yesRes" onclick="return false" ` + ((checkboxInfo.Emp_isResumeAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesRes">Yes</label>
+                                            <input type="checkbox" id="noRes" name="noRes" onclick="return false"` + (!(checkboxInfo.Emp_isResumeAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noRes">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesResAd" name="yesResAd" onclick="return false" ` + ((checkboxInfo.Emp_isResumeAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesResAd">Yes</label>
+                                            <input type="checkbox" id="noResAd" name="noResAd" onclick="return false"` + (!(checkboxInfo.Emp_isResumeAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noResAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">2. 6 additional Passport size photographs (Self) with Employee Code & Full name written on the reverse</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesPhoto" name="yesPhoto" onclick="return false" ` + ((checkboxInfo.Emp_isPhotoAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesPhoto">Yes</label>
+                                            <input type="checkbox" id="noPhoto" name="noPhoto" onclick="return false"` + (!(checkboxInfo.Emp_isPhotoAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noPhoto">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesPhotoAd" name="yesPhotoAd" onclick="return false" ` + ((checkboxInfo.Emp_isPhotoAvailable_Admin__c) ? 'checked' : '') + `>
+                                                    <label for="yesPhotoAd">Yes</label>
+                                            <input type="checkbox" id="noPhotoAd" name="noPhotoAd" onclick="return false"` + (!(checkboxInfo.Emp_isPhotoAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noPhotoAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">3. Photocopy of all Educational Certificates as mentioned in the section “Educational Qualification” in the Employee Joining form</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesEdu" name="yesEdu" onclick="return false" ` + ((checkboxInfo.Emp_isEduCertificatesAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesEdu">Yes</label>
+                                            <input type="checkbox" id="noEdu" name="noEdu" onclick="return false"` + (!(checkboxInfo.Emp_isEduCertificatesAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noEdu">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesEduAd" name="yesEduAd" onclick="return false" ` + ((checkboxInfo.Emp_isEduCertificatesAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesEduAd">Yes</label>
+                                            <input type="checkbox" id="noEduAd" name="noEduAd" onclick="return false"` + (!(checkboxInfo.Emp_isEduCertificatesAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noEduAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">4. Salary slips of previous company (last 2 months) – if applicable (Original)</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesSal" name="yesSal" onclick="return false" ` + ((checkboxInfo.Emp_isSalaryS__c) ? 'checked' : '') + `>
+                                                <label for="yesSal">Yes</label>
+                                            <input type="checkbox" id="noSal" name="noSal" onclick="return false"` + (!(checkboxInfo.Emp_isSalaryS__c) ? 'checked' : '') + `>
+                                                <label for="noSal">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesSalAd" name="yesSalAd" onclick="return false" ` + ((checkboxInfo.Emp_isSalarySlipAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesSalAd">Yes</label>
+                                            <input type="checkbox" id="noSalAd" name="noSalAd" onclick="return false"` + (!(checkboxInfo.Emp_isSalarySlipAvailable_Admin__c) ? 'checked' : '') + `>
+                                                    <label for="noSalAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">5. PAN Card Copy (Self Attested) with Full Name, Employee Code, Phone/Mobile number</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesPan" name="yesPan" onclick="return false"  ` + ((checkboxInfo.Emp_isPanCardAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesPan">Yes</label>
+                                            <input type="checkbox" id="noPan" name="noPan" onclick="return false"` + (!(checkboxInfo.Emp_isPanCardAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noPan">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesPanAd" name="yesPanAd" onclick="return false" ` + ((checkboxInfo.Emp_isPanCardAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesPanAd">Yes</label>
+                                            <input type="checkbox" id="noPanAd" name="noPanAd" onclick="return false"` + (!(checkboxInfo.Emp_isPanCardAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noPanAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">6. Proof of Address & Photo Identification Proof - Voter’s ID Card / Driving License / Passport Copy / Aadhar Card Copy</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesProof" name="yesProof" onclick="return false"  ` + ((checkboxInfo.Emp_isProofOfAddressAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesProof">Yes</label>
+                                            <input type="checkbox" id="noProof" name="noProof" onclick="return false"` + (!(checkboxInfo.Emp_isProofOfAddressAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noProof">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesProofAd" name="yesProofAd" onclick="return false" ` + ((checkboxInfo.Emp_isProofOfAddressAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesProofAd">Yes</label>
+                                            <input type="checkbox" id="noProofAd" name="noProofAd" onclick="return false"` + (!(checkboxInfo.Emp_isProofOfAddressAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noProofAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">7. Provident Fund Nomination & Declaration Form (Form 2) duly filled</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesPF" name="yesPF" onclick="return false"  ` + ((checkboxInfo.Emp_isPFNominationAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesPF">Yes</label>
+                                            <input type="checkbox" id="noPF" name="noPF" onclick="return false"` + (!(checkboxInfo.Emp_isPFNominationAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noPF">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesPFAd" name="yesPFAd" onclick="return false" ` + ((checkboxInfo.Emp_isPFNominationAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesPFAd">Yes</label>
+                                            <input type="checkbox" id="noPFAd" name="noPFAd" onclick="return false"` + (!(checkboxInfo.Emp_isPFNominationAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noPFAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">8. Gratuity Nomination Form (Form F) duly filled * pre-filled sample copy enclosed</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesGrat" name="yesGrat" onclick="return false"  ` + ((checkboxInfo.Emp_isGratuityFormAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesGrat">Yes</label>
+                                            <input type="checkbox" id="noGrat" name="noGrat" onclick="return false"` + (!(checkboxInfo.Emp_isGratuityFormAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noGrat">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesGratAd" name="yesGratAd" onclick="return false" ` + ((checkboxInfo.Emp_isGratuityFormAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesGratAd">Yes</label>
+                                            <input type="checkbox" id="noGratAd" name="noGratAd" onclick="return false"` + (!(checkboxInfo.Emp_isGratuityFormAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noGratAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">9. Signed Acknowledged copy of the Offer Letter / Appointment letter</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesOffer" name="yesOffer" onclick="return false"  ` + ((checkboxInfo.Emp_isSignedOfferLetterAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesOffer">Yes</label>
+                                            <input type="checkbox" id="noOffer" name="noOffer" onclick="return false"` + (!(checkboxInfo.Emp_isSignedOfferLetterAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noOffer">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesOfferAd" name="yesOfferAd" onclick="return false" ` + ((checkboxInfo.Emp_isSignedOfferLetterAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesOfferAd">Yes</label>
+                                            <input type="checkbox" id="noOfferAd" name="noOfferAd" onclick="return false"` + (!(checkboxInfo.Emp_isSignedOfferLetterAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noOfferAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">10. Previous Employer Relieving & Experience Letter</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesExp" name="yesExp" onclick="return false"  ` + ((checkboxInfo.Emp_isExperienceLetterAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesExp">Yes</label>
+                                            <input type="checkbox" id="noExp" name="noExp" onclick="return false"` + (!(checkboxInfo.Emp_isExperienceLetterAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noExp">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesExpAd" name="yesExpAd" onclick="return false" ` + ((checkboxInfo.Emp_isExperienceLetterAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesExpAd">Yes</label>
+                                            <input type="checkbox" id="noExpAd" name="noExpAd" onclick="return false"` + (!(checkboxInfo.Emp_isExperienceLetterAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noExpAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">11. Bank Statement - 6 months(Optional)</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesBnk" name="yesBnk" onclick="return false"  ` + ((checkboxInfo.Emp_isBankStatementAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesBnk">Yes</label>
+                                            <input type="checkbox" id="noBnk" name="noBnk" onclick="return false"` + (!(checkboxInfo.Emp_isBankStatementAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noBnk">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesBnkAd" name="yesBnkAd" onclick="return false" ` + ((checkboxInfo.Emp_isBankStatementAvailable_Adminn__c) ? 'checked' : '') + `>
+                                                <label for="yesBnkAd">Yes</label>
+                                            <input type="checkbox" id="noBnk" name="noBnk" onclick="return false"` + (!(checkboxInfo.Emp_isBankStatementAvailable_Adminn__c) ? 'checked' : '') + `>
+                                                <label for="noBnk">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">12. Blood Group Report (Original)</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesBloodGrp" name="yesBloodGrp" onclick="return false"  ` + ((checkboxInfo.Emp_isBloodGroupReportAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesBloodGrp">Yes</label>
+                                            <input type="checkbox" id="noBloodGrp" name="noBloodGrp" onclick="return false"` + (!(checkboxInfo.Emp_isBloodGroupReportAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noBloodGrp">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesBloodGrpAd" name="yesBloodGrpAd" onclick="return false" ` + ((checkboxInfo.Emp_isBloodGroupReportAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesBloodGrpAd">Yes</label>
+                                            <input type="checkbox" id="noBloodGrpAd" name="noBloodGrpAd" onclick="return false"` + (!(checkboxInfo.Emp_isBloodGroupReportAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noBloodGrpAd">No</label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">13. Code of Conduct</td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesCode" name="yesCode" onclick="return false"` + ((checkboxInfo.Emp_isCodeOfConductAvailable__c) ? 'checked' : '') + `>
+                                                <label for="yesCode">Yes</label>
+                                            <input type="checkbox" id="noCode" name="noCode" onclick="return false"` + (!(checkboxInfo.Emp_isCodeOfConductAvailable__c) ? 'checked' : '') + `>
+                                                <label for="noCode">No</label>
+                                        </td>
+                                        <td style="border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">
+                                            <input type="checkbox" id="yesCodeAd" name="yesCodeAd" onclick="return false"` + ((checkboxInfo.Emp_isCodeOfConductAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="yesCodeAd">Yes</label>
+                                            <input type="checkbox" id="noCodeAd" name="noCodeAd"  onclick="return false"` + (!(checkboxInfo.Emp_isCodeOfConductAvailable_Admin__c) ? 'checked' : '') + `>
+                                                <label for="noCodeAd">No</label>
+                                        </td>
+                                    </tr>
+                                </table>`;
+            return checkboxTemp;
+        }
+        function printofficeOnly(){
+            var officeTemp = `<table style="empty-cells:show; margin-left:auto; margin-right:auto; margin-top:2rem; width:90%; align:center; border:1px solid black; border-collapse: collapse; padding-bottom: 10px; padding-left:3px; text-align:left;">
+                                <caption style="background-color:#d3d3d3; font-size:20px; color:black">For Novigo Office Use Only</caption>                    
+                                <tr>
+                                    <td style="height:5px; width:25%; font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Date of Reciept of the documents at the Local Office: </td>
+                                    <td style="height:5px; width:25%; font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;"></td>
+                                    <td style="height:5px; width:25%; font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Document Received by (Full Name):</td>
+                                    <td style="height:5px; width:25%; font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;"></td>
+                                </tr>    
+                                <tr>
+                                    <td style="height:5px; width:25%; font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Document Details updated on Keka: </td>
+                                    <td style="height:5px; width:25%; font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;"></td>
+                                    <td style="height:5px; width:25%; font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;">Document Received by (Full Name):</td>
+                                    <td style="height:5px; width:25%; font-weight:bold; border:1px solid black; border-collapse: collapse; padding-top: 10px; padding-bottom: 10px; padding-left:3px;"></td>
+                                </tr>     
+                            </table>
+                        </div>`
+            return officeTemp; 
+        }
+
+        function printpdftemplate(empInfo)
+        {
+    		var myWindow=window.open('','','width=1280,height=720');
+    		myWindow.document.write(empInfo);
+			myWindow.focus();
+            myWindow.print();
+            myWindow.close();
+            myWindow.document.close();
+		}
+
+        function reverseString(str) 
+        {
+            return str.split("-").reverse().join("-");
+        }
+     </script>
+    </body>
+    </html>
+</apex:page>

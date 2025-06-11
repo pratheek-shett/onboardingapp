@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EQ_postGradDegree__c</fullName>
+    <externalId>false</externalId>
+    <label>EQ_postGradDegree</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Master Of Engineering</fullName>
+                <default>false</default>
+                <label>Master Of Engineering</label>
+            </value>
+            <value>
+                <fullName>Master Of Technology</fullName>
+                <default>false</default>
+                <label>Master Of Technology</label>
+            </value>
+            <value>
+                <fullName>Master Of Computer Applications</fullName>
+                <default>false</default>
+                <label>Master Of Computer Applications</label>
+            </value>
+            <value>
+                <fullName>Master Of Science</fullName>
+                <default>false</default>
+                <label>Master Of Science</label>
+            </value>
+            <value>
+                <fullName>Master Of Arts</fullName>
+                <default>false</default>
+                <label>Master Of Arts</label>
+            </value>
+            <value>
+                <fullName>Master Of Commerce</fullName>
+                <default>false</default>
+                <label>Master Of Commerce</label>
+            </value>
+            <value>
+                <fullName>Master Of Business Administration</fullName>
+                <default>false</default>
+                <label>Master Of Business Administration</label>
+            </value>
+            <value>
+                <fullName>Master Of Architecture</fullName>
+                <default>false</default>
+                <label>Master Of Architecture</label>
+            </value>
+            <value>
+                <fullName>Master Of Laws</fullName>
+                <default>false</default>
+                <label>Master Of Laws</label>
+            </value>
+            <value>
+                <fullName>Master Of Design</fullName>
+                <default>false</default>
+                <label>Master Of Design</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

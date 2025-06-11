@@ -1,0 +1,81 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="kycDetails">
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <title>
+                KYC Details
+            </title>
+        </head>
+        <body>
+            <div id="kycformcontainer">
+                <form id="kycform">
+                    <label for="documenttype">
+                        Document Type
+                    </label><br/><br/>
+                    <select name="documenttype" id="documenttype" class="dtype">
+                        <option value="Bank Account (ICICI)">Bank Account (ICICI)</option>
+                        <option value="Aadhar Card">Aadhar Card</option>
+                        <option value="Pan Card">Pan Card</option>
+                        <option value="Voter Card">Voter Card</option>
+                        <option value="ESIC Card">ESIC Card</option>
+                        <option value="Ration Card">Ration Card</option>
+                        <option value="Passport">Passport</option>
+                    </select><br/><br/>
+                    <label for="nameondoc">Name as per the Document</label><br/>
+                    <input type="text" class="nameondoc" id="nameondoc" placeholder="Enter your Name"/><br/><br/>
+                    <label for="docnumber">Document Number</label><br/>
+                    <input type="text" class="docnumber" id="docnumber" placeholder="Enter the Document Number"/><br/><br/>
+                    <label for="remarks">Remarks</label><br/>
+                    <input type="text" class="remarks" id="remarks" placeholder="Remarks"/><br/><br/>
+                    <button  onclick="submitBtn(event)" class="save">Save</button><br/><br/>
+                    <button  onclick="addNew(event)" class="save">Add New</button><br/><br/>
+                </form>
+            </div>
+            <script>
+            /*   if(performance.navigation.type === 1){
+                const empId='a025h00000t820aAAA';
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.fetchKyc}',empId,
+                                                                    function (result,event){
+                											            console.log(result);
+                                                                        document.getElementById("documenttype").value=result.Kyc_documentType__c;
+                                                                        document.getElementById("nameondoc").value=result.Kyc_nameOnDocument__c;
+                                                                        document.getElementById("docnumber").value=result.Kyc_documentNumber__c;
+                                                                        document.getElementById("remarks").value=result.Kyc_remarks__c;
+                                                                    });
+              }*/ 
+
+                function addNew(event){
+                    event.preventDefault();
+			             const newForm = document.createElement("form");
+                         newForm.innerHTML = document.getElementById("kycform").innerHTML;
+                         newForm.reset();
+                         document.getElementById("kycformcontainer").appendChild(newForm);
+                 }
+                 function submitBtn(event){
+                     	event.preventDefault();
+                        const Document=document.getElementById("documenttype").value;
+                        const Nameondoc=document.getElementById("nameondoc").value;
+                        const Docnumber=document.getElementById("docnumber").value;
+                        const Remarks=document.getElementById("remarks").value;
+                        const empId = 'a025h00000t820aAAA';
+                        console.log(Document);
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.saveKyc}',
+                                                                    empId,
+                                                                    Document,
+                                                                    Nameondoc,
+                                                                    Docnumber,
+                                                                    Remarks,
+                                                                    function (result,event){
+                											            console.log(result);
+                                                                    });
+                 
+                                                                }
+                 function getUrlParameter(name) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        return urlParams.get(name);
+                 }
+            </script>
+        </body>
+    </html>
+</apex:page>
