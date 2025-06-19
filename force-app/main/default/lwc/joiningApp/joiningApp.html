@@ -1,0 +1,16 @@
+<template>
+    <lightning-card>
+        <div >
+            <lightning-record-edit-form
+            object-api-name="JK_Employee__c"
+            record-id="a02J2000005w5zAIAQ"
+            >
+            <div class="slds-grid slds-wrap slds-gutters ">
+                <template for:each={EmployeeField} for:item="i">
+                    <lightning-input-field class="slds-col slds-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 " field-name={i} key={i}></lightning-input-field>
+                </template>
+            </div>
+            </lightning-record-edit-form>
+        </div>
+    </lightning-card>
+</template>

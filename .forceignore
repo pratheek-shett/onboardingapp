@@ -1,0 +1,24 @@
+# List files or directories below to ignore them when running force:source:push, force:source:pull, and force:source:status
+# More information: https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
+#
+
+package.xml
+
+# LWC configuration files
+**/jsconfig.json
+**/.eslintrc.json
+
+# force-app/main/default/classes/kycDetails.cls*
+
+
+# force-app/main/default/pages/empEducationalQualification.page*
+
+# force-app/main/default/pages/kycDetails.page*
+# force-app/main/default/pages/kycForm.page*
+
+# force-app/main/default/classes/EDML.cls*
+
+
+
+# LWC Jest
+**/__tests__/**
