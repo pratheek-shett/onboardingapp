@@ -1,0 +1,25 @@
+/* component.css */
+
+/* Base Styles */
+.slds-card {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.slds-grid {
+    gap: 1rem; /* Adjust the gap between fields as needed */
+}
+
+/* Field Styling */
+.slds-input {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .slds-col {
+        flex: 1 0 100%; /* Make fields full-width on smaller screens */
+    }
+}
