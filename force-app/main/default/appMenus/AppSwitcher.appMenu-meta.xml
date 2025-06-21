@@ -100,7 +100,7 @@
         <name>standard__AllTabSet</name>
         <type>CustomApplication</type>
     </appMenuItems>
-    <appMenuItems>
+     <appMenuItems>
         <name>trlhdtips__Playground_Starter</name>
         <type>CustomApplication</type>
     </appMenuItems>

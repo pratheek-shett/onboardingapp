@@ -14,7 +14,32 @@ public class DML {
         
         System.debug(Id);
         try{
-            JK_KycDetail__c emp = [SELECT Kyc_documentType__c,Kyc_nameOnDocument__c,Kyc_documentNumber__c,Kyc_remarks__c FROM JK_KycDetail__c WHERE Id = :id AND KycToEmp__c= :empId];
+            // JK_KycDetail__c emp = [SELECT Kyc_documentType__c,Kyc_nameOnDocument__c,Kyc_documentNumber__c,Kyc_remarks__c FROM JK_KycDetail__c WHERE Id = :id AND KycToEmp__c= :empId];
+               System.debug('KYC Save Request for empId: ' + empId);
+
+    // Validate employee ID
+    if (empId == null) {
+        throw new AuraHandledException('Invalid employee ID: empId is null.');
+    }
+
+    JK_KycDetail__c emp;
+
+    List<JK_KycDetail__c> existing = [
+        SELECT Id, Kyc_documentType__c, Kyc_nameOnDocument__c, Kyc_documentNumber__c, Kyc_remarks__c
+        FROM JK_KycDetail__c
+        WHERE Id = :id AND KycToEmp__c = :empId
+        LIMIT 1
+    ];
+
+    if (!existing.isEmpty()) {
+        // Update existing
+        emp = existing[0];
+        System.debug('Updating existing KYC record: ' + emp.Id);
+    } else {
+        // Insert new
+        emp = new JK_KycDetail__c(KycToEmp__c = empId);
+        System.debug('Creating new KYC record');
+    }
             emp.Kyc_documentType__c=document;
             emp.Kyc_nameOnDocument__c=nameondoc;
             emp.Kyc_documentNumber__c=docnumber;    
@@ -29,7 +54,7 @@ public class DML {
             {
                 emp.Kyc_ifscCode__c = '';
             }   
-            update emp;
+            upsert emp;
             return emp;
         }
         catch(Exception e){

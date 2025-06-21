@@ -1,5 +1,5 @@
 public class mainController {
-    String empId='';
+    String empId=  '';
     //********************************** EMPLOYEE INFO CRUD FUNCTION CALLS TO DML DML*******************************************
     @RemoteAction
     public static JK_Employee__c fetchEmployee(Id employeeId)
@@ -243,39 +243,76 @@ public class mainController {
         }
         upsert records;
     }
-    @RemoteAction 
-    public static void insertUpdateKycBulk(String jsonData)
-    {
-        List<JK_KycDetail__c> jsonRecords = (List<JK_KycDetail__c>)JSON.deserialize(jsonData, List<JK_KycDetail__c>.class);
-        List<JK_KycDetail__c> records = new List<JK_KycDetail__c>();
+    // @RemoteAction 
+    // public static void insertUpdateKycBulk(String jsonData)
+    // {
+    //     List<JK_KycDetail__c> jsonRecords = (List<JK_KycDetail__c>)JSON.deserialize(jsonData, List<JK_KycDetail__c>.class);
+    //     List<JK_KycDetail__c> records = new List<JK_KycDetail__c>();
 
-        for(JK_KycDetail__c i : jsonRecords)
-        {
-            Schema.SObjectType objType = i.getSObjectType();
-            Schema.DescribeSObjectResult objDescribe = objType.getDescribe();
-            if (objDescribe.fields.getMap().containsKey('Id')) {
-                // The object has a field named "Id"
-                records.add(i);
-            } else {
-                JK_KycDetail__c newRecord =new  JK_KycDetail__c();
-                    newRecord.Kyc_documentType__c = i.Kyc_documentType__c;
-                    newRecord.Kyc_nameOnDocument__c =i.Kyc_nameOnDocument__c;
-                    newRecord.Kyc_documentNumber__c = i.Kyc_documentNumber__c;
-                    newRecord.Kyc_remarks__c = i.Kyc_remarks__c;
-                    newRecord.KycToEmp__c = i.KycToEmp__c;
-                    if (objDescribe.fields.getMap().containsKey('Kyc_expDate__c'))
-                    {
-                        newRecord.Kyc_expDate__c=i.Kyc_expDate__c;
-                    }
-                    if (objDescribe.fields.getMap().containsKey('Kyc_ifscCode__c'))
-                    {
-                        newRecord.Kyc_ifscCode__c=i.Kyc_ifscCode__c;
-                    }
-                    records.add(newRecord);
-            }
+    //     for(JK_KycDetail__c i : jsonRecords)
+    //     {
+    //         Schema.SObjectType objType = i.getSObjectType();
+    //         Schema.DescribeSObjectResult objDescribe = objType.getDescribe();
+    //         if (objDescribe.fields.getMap().containsKey('Id')) {
+    //             // The object has a field named "Id"
+    //             records.add(i);
+    //         } else {
+    //             JK_KycDetail__c newRecord =new  JK_KycDetail__c();
+    //                 newRecord.Kyc_documentType__c = i.Kyc_documentType__c;
+    //                 newRecord.Kyc_nameOnDocument__c =i.Kyc_nameOnDocument__c;
+    //                 newRecord.Kyc_documentNumber__c = i.Kyc_documentNumber__c;
+    //                 newRecord.Kyc_remarks__c = i.Kyc_remarks__c;
+    //                 newRecord.KycToEmp__c = i.KycToEmp__c;
+    //                 if (objDescribe.fields.getMap().containsKey('Kyc_expDate__c'))
+    //                 {
+    //                     newRecord.Kyc_expDate__c=i.Kyc_expDate__c;
+    //                 }
+    //                 if (objDescribe.fields.getMap().containsKey('Kyc_ifscCode__c'))
+    //                 {
+    //                     newRecord.Kyc_ifscCode__c=i.Kyc_ifscCode__c;
+    //                 }
+    //                 records.add(newRecord);
+    //         }
+    //     }
+    //     upsert records;
+    // }
+@RemoteAction 
+public static void insertUpdateKycBulk(String jsonData)
+{
+    List<JK_KycDetail__c> jsonRecords = (List<JK_KycDetail__c>)JSON.deserialize(jsonData, List<JK_KycDetail__c>.class);
+    List<JK_KycDetail__c> records = new List<JK_KycDetail__c>();
+
+    for (JK_KycDetail__c i : jsonRecords)
+    {
+        // ✅ Validate empId exists and is not null
+        if (String.isBlank(i.KycToEmp__c)) {
+            throw new AuraHandledException('Employee ID (KycToEmp__c) is missing.');
         }
-        upsert records;
+
+        // ✅ Check if the Employee ID is a valid reference
+        List<JK_Employee__c> empCheck = [SELECT Id FROM JK_Employee__c WHERE Id = :i.KycToEmp__c LIMIT 1];
+        if (empCheck.isEmpty()) {
+            throw new AuraHandledException('Invalid Employee ID: ' + i.KycToEmp__c);
+        }
+
+        // ✅ Now prepare record for upsert
+        JK_KycDetail__c newRecord = new JK_KycDetail__c();
+        newRecord.Id = i.Id;
+        newRecord.Kyc_documentType__c = i.Kyc_documentType__c;
+        newRecord.Kyc_nameOnDocument__c = i.Kyc_nameOnDocument__c;
+        newRecord.Kyc_documentNumber__c = i.Kyc_documentNumber__c;
+        newRecord.Kyc_remarks__c = i.Kyc_remarks__c;
+        newRecord.KycToEmp__c = i.KycToEmp__c;
+
+        // Optional fields
+        newRecord.Kyc_expDate__c = i.Kyc_expDate__c;
+        newRecord.Kyc_ifscCode__c = i.Kyc_ifscCode__c;
+
+        records.add(newRecord);
     }
+
+    upsert records;
+}
 
 
     // Document Checklist Employee
@@ -436,9 +473,15 @@ public class mainController {
     {
         DateTime myDateTimes = DateTime.now();
         String dateTimeStrings = myDateTimes.format('yyyy-MM-dd HH:mm:ss');     
-        JK_Employee__c employee = [select Emp_lastModified__c from JK_Employee__c where Id=:empId];
+        List<JK_Employee__c> employeeList = [SELECT Emp_lastModified__c FROM JK_Employee__c WHERE Id = :empId];
+
+    if (!employeeList.isEmpty()) {
+        JK_Employee__c employee = employeeList[0];
         employee.Emp_lastModified__c = dateTimeStrings;
         update employee;
+    } else {
+        throw new AuraHandledException('Employee with Id ' + empId + ' not found.');
+    }
     }
 
     

@@ -58,7 +58,7 @@
                         const Nameondoc=document.getElementById("nameondoc").value;
                         const Docnumber=document.getElementById("docnumber").value;
                         const Remarks=document.getElementById("remarks").value;
-                        const empId = 'a025h00000t820aAAA';
+                        const empId =  new URLSearchParams(window.location.search).get("id");
                         console.log(Document);
                         Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.saveKyc}',
                                                                     empId,

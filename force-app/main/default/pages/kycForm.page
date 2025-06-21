@@ -631,6 +631,7 @@ addNewKyc.addEventListener('click' , (e)=>{
                             <button class="savebtn">Save</button>
                         </div>
     </div>`;
+
  
     const parent = document.querySelector('.kyc_form');
  
@@ -754,16 +755,30 @@ kyc.addEventListener('click',(e)=>{
     {
         const parent = e.target.closest('.input_div_group');
         console.log(parent);
-        const Kyc_documentType__c=document.getElementById("Kyc_documentType__c").value;
-        const Kyc_nameOnDocument__c=document.getElementById("Kyc_nameOnDocument__c").value;
-        const Kyc_documentNumber__c=document.getElementById("Kyc_documentNumber__c").value;
-        const Kyc_remarks__c=document.getElementById("Kyc_remarks__c").value;
-        const Id=document.getElementById("Id").value;
-        const empId = 'a025h00000t820aAAA';
+        // const Kyc_documentType__c=document.getElementById("Kyc_documentType__c").value;
+        // const Kyc_nameOnDocument__c=document.getElementById("Kyc_nameOnDocument__c").value;
+        // const Kyc_documentNumber__c=document.getElementById("Kyc_documentNumber__c").value;
+        // const Kyc_remarks__c=document.getElementById("Kyc_remarks__c").value;
+        // const Id=document.getElementById("Id").value;
+        // const empId = 'a025h00000t820aAAA';
+
+         const Kyc_documentType__c = parent.querySelector(".Kyc_documentType__c").value;
+          const Kyc_nameOnDocument__c = parent.querySelector(".Kyc_nameOnDocument__c").value;
+          const Kyc_documentNumber__c = parent.querySelector("#Kyc_documentNumber__c").value;
+           const Kyc_remarks__c = parent.querySelector("#Kyc_remarks__c")?.value || parent.querySelector("#remarks")?.value;
+            const Id = parent.querySelector(".Id").value;
+            const empId = new URLSearchParams(window.location.search).get("id");
+
+          if (!empId || empId.length !== 18) {
+               alert("❌ Invalid Employee ID – cannot save KYC.");
+             return;
+            }
+            const expDate = ""; 
+            const ifscCode = ""; 
         console.log(Document);
         Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.saveKyc}',
-                                                    empId,Kyc_documentType__c,Kyc_nameOnDocument__c,
-                                                    Kyc_documentNumber__c,Kyc_remarks__c,
+                                                    empId, Kyc_documentType__c, Kyc_nameOnDocument__c,Kyc_documentNumber__c, Kyc_remarks__c,
+                                                    Id, expDate, ifscCode,
                                                     function (result,event){
                 							            document.getElementById("Id").value=result.Id;
                                                     });
@@ -785,7 +800,7 @@ kyc.addEventListener('click',(e)=>{
     }
 });
     
-        const empId='a025h00000t820aAAA';
+        const empId= new URLSearchParams(window.location.search).get("id");
         Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.fetchKyc}',empId,
                                                     function(result,event){
                                                         console.log(result);
