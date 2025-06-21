@@ -5630,7 +5630,7 @@ ul li .active .uil{
                 function(result,event){
                     console.log(result);
                     document.querySelector('.previewEmployeeDetail').classList.add('green-stage');
-                    const ref = 'https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp';
+                    const ref = window.location.origin + '/JoiningApp'; //fetched current org domain 
                     window.location.href  = ref;
                 });
                 // update stage 

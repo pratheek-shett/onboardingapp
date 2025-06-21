@@ -2260,7 +2260,9 @@ ul li .active .uil{
 
             //log out logic
                 document.querySelector('.logout-btn').addEventListener('click', (e) => {
-                const ref = 'https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp';
+                // const ref = 'https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp';
+                const ref = window.location.origin + '/JoiningApp';
+
                 window.location.href  = ref;
             });
 
@@ -5321,7 +5323,8 @@ ul li .active .uil{
                 function(result,event){
                     console.log(result);
                     document.querySelector('.previewEmployeeDetail').classList.add('green-stage');
-                    const ref = 'https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp';
+                   const ref = window.location.origin + '/JoiningApp';
+
                     window.location.href  = ref;
                 });
                 // update stage 

@@ -1902,7 +1902,7 @@
             });
             //log out logic
                 document.querySelector('.logout-btn').addEventListener('click', (e) => {
-                const ref = 'https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp';
+                const ref = window.location.origin + '/JoiningApp';
                 window.location.href  = ref;
             });
 
@@ -5444,7 +5444,7 @@
                     console.log(result);
                     document.querySelector('.previewEmployeeDetail').classList.add('green-stage');
                     generateErrorMsg('Thank you for filling the form, your data has been submitted successfully!','success');
-                    const ref = 'https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp';
+                    const ref = window.location.origin + '/JoiningApp'; //fetches current org 
                     // Define the code you want to run after 5 seconds
                     function logout() {
                         window.location.href  = ref;   

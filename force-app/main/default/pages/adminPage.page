@@ -1808,7 +1808,8 @@
              Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.updateStage}',recordId,'',function(result,event){
             console.log(recordId)
             console.log('updated stage.');
-            window.open("https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp/apex/mainPage?id="+recordId);
+            // window.open("https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp/apex/mainPage?id="+recordId);
+                 window.open(window.location.origin + "/JoiningApp/apex/mainPage?id=" + recordId);
 
         });
         }
