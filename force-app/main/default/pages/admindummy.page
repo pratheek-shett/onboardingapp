@@ -1644,7 +1644,7 @@
     }
 
     function logout(){
-        const ref ='https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp';
+        const ref = window.location.origin + '/JoiningApp';
 	    window.location.href  = ref;
     }
     function formatDate(dateString) {
