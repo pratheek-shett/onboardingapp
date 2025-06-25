@@ -1,4 +1,4 @@
-<apex:page showHeader="false" standardStylesheets="false" controller="kycDetails">
+<apex:page showHeader="false" standardStylesheets="false" controller="EO_KycDetails">
     <html lang="en">
         <head>
             <meta charset="UTF-8"/>
@@ -35,7 +35,7 @@
             <script>
             /*   if(performance.navigation.type === 1){
                 const empId='a025h00000t820aAAA';
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.fetchKyc}',empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_KycDetails.fetchKyc}',empId,
                                                                     function (result,event){
                 											            console.log(result);
                                                                         document.getElementById("documenttype").value=result.Kyc_documentType__c;
@@ -60,7 +60,7 @@
                         const Remarks=document.getElementById("remarks").value;
                         const empId =  new URLSearchParams(window.location.search).get("id");
                         console.log(Document);
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.saveKyc}',
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_KycDetails.saveKyc}',
                                                                     empId,
                                                                     Document,
                                                                     Nameondoc,

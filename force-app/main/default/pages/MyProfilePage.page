@@ -1,4 +1,4 @@
-<apex:page id="portalUserProfilePage" controller="MyProfilePageController" showHeader="false" title="{!$Label.site.my_profile_page}">
+<apex:page id="portalUserProfilePage" controller="EO_MyProfilePageController" showHeader="false" title="{!$Label.site.my_profile_page}">
   <apex:composition template="{!$Site.Template}">
     <apex:define name="body">
         <apex:form id="theForm">

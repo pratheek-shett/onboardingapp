@@ -1,4 +1,4 @@
-<apex:page standardStylesheets="false" applyHtmlTag="true" controller="empEducationalQualificationController">
+<apex:page standardStylesheets="false" applyHtmlTag="true" controller="EO_EmpEducationalQualificationController">
 
 <body>
 
@@ -115,7 +115,7 @@ function saveEmpInfoDB(){
     const percentageMarks=document.getElementById('percentageMarks');
     
         
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.empEducationalQualificationController.fetchEducationalQualificationData}',employeeId,educationalLevel,degree,boardOrUniversity,
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_EmpEducationalQualificationController.fetchEducationalQualificationData}',employeeId,educationalLevel,degree,boardOrUniversity,
         schoolOrCollegeName,yearOfPassing,percentageMarks,function(result,event){
     if(event.status){
         console.log('inside success');
@@ -383,7 +383,7 @@ function saveEmpInfoDB(){
     const yearOfPassing=document.getElementById('yearOfPassing').value;
     const percentageMarks=document.getElementById('percentageMarks').value;
         
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.empEducationalQualificationController.saveOrUpdateEducationalDetail}',employeeId,educationalLevel,degree,boardOrUniversity,
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_EmpEducationalQualificationController.saveOrUpdateEducationalDetail}',employeeId,educationalLevel,degree,boardOrUniversity,
         schoolOrCollegeName,yearOfPassing,percentageMarks,function(result,event){
     if(event.status){
     console.log('Submitted');

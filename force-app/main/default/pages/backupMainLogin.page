@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="backupLogin">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="EO_BackupLogin">
     
 <html lang="en">
     <head>
@@ -257,13 +257,13 @@
             e.preventDefault();
             eventmsg.innerHTML ='';
 
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.backupLogin.getEmpId}',username,password,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_BackupLogin.getEmpId}',username,password,
             function (result,event){
                 employeeId = result;
                 console.log("employee id", employeeId);
             });
 
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.backupLogin.check}',username,password,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_BackupLogin.check}',username,password,
             function (result,event){
                 let loginType = result;
                 eventmsg.innerHTML = loginType;
@@ -307,7 +307,7 @@
         pdfButton.addEventListener('click' , (e)=>{
             e.preventDefault();
             console.log("empId inside pdf", employeeId);
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.backupLogin.pdfDataForUser}',employeeId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_BackupLogin.pdfDataForUser}',employeeId,
             function(result,event){
                 console.log(result);
                 printPDF(result);

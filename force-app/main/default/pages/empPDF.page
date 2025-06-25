@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="pdfController">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="EO_PdfController">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -439,7 +439,7 @@
     genpdf.addEventListener('click',(e)=>{
         e.preventDefault();
         var empId = 'a025h00000t9RnoAAE';
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.pdfController.pdfData}',empId,
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_PdfController.pdfData}',empId,
         function(result,event){
             console.log(result);
             pdfTable(result);

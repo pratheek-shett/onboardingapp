@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="login">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="EO_Login">
     
 <html lang="en">
     <head>
@@ -298,13 +298,13 @@
 
             e.preventDefault();
 
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.login.getEmpId}',username,password,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_Login.getEmpId}',username,password,
             function (result,event){
                 employeeId = result;
                 console.log("employee id", employeeId);
             });
 
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.login.check}',username,password,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_Login.check}',username,password,
             function (result,event){
                 let loginType = result;
                 //eventmsg.innerHTML = loginType;
@@ -355,7 +355,7 @@
         pdfButton.addEventListener('click' , (e)=>{
             e.preventDefault();
             console.log("empId inside pdf", employeeId);
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.login.pdfDataForUser}',employeeId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_Login.pdfDataForUser}',employeeId,
             function(result,event){
                 if(result.employeeInfo.Emp_isEmployeeDocumentVerficationDone__c)
                 {

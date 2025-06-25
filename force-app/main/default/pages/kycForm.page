@@ -1,4 +1,4 @@
-<apex:page standardStylesheets="false" controller="kycDetails">
+<apex:page standardStylesheets="false" controller="EO_KycDetails">
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
@@ -776,7 +776,7 @@ kyc.addEventListener('click',(e)=>{
             const expDate = ""; 
             const ifscCode = ""; 
         console.log(Document);
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.saveKyc}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_KycDetails.saveKyc}',
                                                     empId, Kyc_documentType__c, Kyc_nameOnDocument__c,Kyc_documentNumber__c, Kyc_remarks__c,
                                                     Id, expDate, ifscCode,
                                                     function (result,event){
@@ -790,7 +790,7 @@ kyc.addEventListener('click',(e)=>{
         const Id=parent.querySelector(".Id").value;
         if(Id!=null)
         {
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.deleteKyc}',Id,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_KycDetails.deleteKyc}',Id,
                                                         function(result,event){
                                                             console.log(result);
                                                         }
@@ -801,7 +801,7 @@ kyc.addEventListener('click',(e)=>{
 });
     
         const empId= new URLSearchParams(window.location.search).get("id");
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.kycDetails.fetchKyc}',empId,
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_KycDetails.fetchKyc}',empId,
                                                     function(result,event){
                                                         console.log(result);
                                                         result.forEach((e)=>{

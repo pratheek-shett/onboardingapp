@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="adminController">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="EO_AdminController">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -881,7 +881,7 @@
         e.preventDefault();
         const adm_username = document.querySelector('#Adm_userName__c').value;
         const adm_password = document.querySelector('#Adm_password__c').value;
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.createAdmin}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.createAdmin}',
             adm_username,adm_password,
             function(result,event)
             {
@@ -902,7 +902,7 @@
         let password=generateRandomPassword();
         let text = `Your password is ${password}`;
 
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.addEmployee}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.addEmployee}',
         emailId,password,Emp_designation__c,Emp_dateOfJoining__c,adminId,
         function(result,event){
             console.log(result); 
@@ -1029,7 +1029,7 @@
                 console.log(recordId);
                 parent.remove();
                 document.querySelector('.deletemessage').style.display='none';
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.deleteEmployee}',recordId,function(result,event){
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.deleteEmployee}',recordId,function(result,event){
                 console.log(result);
                 generateErrorMsg('Employee Deleted Successfully! 🎉','success');
             });
@@ -1039,7 +1039,7 @@
         if(e.target.closest('.toEmployeebtn')){
              // Reset stage progress
              let recordId=parent.querySelector('.empId').value;
-             Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.updateStage}',recordId,'',function(result,event){
+             Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.updateStage}',recordId,'',function(result,event){
             console.log(recordId)
             console.log('updated stage.')
             window.open("https://wise-bear-j76ayp-dev-ed.trailblaze.my.salesforce-sites.com/JoiningApp/apex/mainPage?id="+recordId);
@@ -1061,7 +1061,7 @@
             const parent = e.target.closest('.employee_cards');
             const recordId = parent.querySelector('.empId').value;
             console.log("EmpID", recordId);
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.pdfData}',recordId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.pdfData}',recordId,
             function(result,event){
                 printPDF(result);
             });
@@ -1072,7 +1072,7 @@
             console.log('Verify Button');
             document.querySelector('.VerifyDetails').style.display='flex';
             document.querySelector('.saveChecklist').value=empId;
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.fetchCheckList}',empId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.fetchCheckList}',empId,
                 function(result,event)
                 {
                     console.log(result);
@@ -1107,14 +1107,14 @@
         if(e.target.closest('.enableEdit')){
             console.log("You clicked enable edit");
             const empId = parent.querySelector('.empId').value;
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.enableEdit}',empId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.enableEdit}',empId,
                 function(result,event)
                 {
                     console.log(result);
                     generateErrorMsg('Edit Enabled 🎉','success');
                     location.reload();
                 });
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.updateStage}',empId,'',function(result,event){
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.updateStage}',empId,'',function(result,event){
                 console.log('updated stage.')
         })
         }
@@ -1122,7 +1122,7 @@
     });
     const fetchEmployeeCards = ()=>{
         document.querySelector('.employee_cards').remove();  
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.fetchEmployees}',function(result,event){
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.fetchEmployees}',function(result,event){
 
             console.log(result);
             
@@ -1258,7 +1258,7 @@
         })
     }
     function exportToExcel(){
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.exportToExcel}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.exportToExcel}',
                                                   function(result,status){
                                                     console.log(result);
                                                    //console.log(result[0]['JK_EducationalQualifications__r'][0].EQ_degree__c);
@@ -1624,7 +1624,7 @@
         const codeOfConduct = document.querySelector('#Emp_isCodeOfConductAvailable__c').checked;
         const codeOfConductAdmin = document.querySelector('#Emp_isCodeOfConductAvailable_Admin__c').checked;
 
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.saveCheckList}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.saveCheckList}',
             recordId,resume,resumeAdmin,photo,photoAdmin,eduCert,eduCertAdmin,salarySlip,salarySlipAdmin,
             panCard,panCardAdmin,addressProof,addressProofAdmin,pfNomination,pfNominationAdmin,gratuityForm,
             gratuityFormAdmin,signedOfferLetter,signedOfferLetterAdmin,expLetter,expLetterAdmin,bankStatement,
@@ -1640,7 +1640,7 @@
     approveDocs.addEventListener('click',(e)=>{
         console.log("Approve Button");
         const recordId = document.querySelector('.saveChecklist').value;
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.approveFinalSubmission}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.approveFinalSubmission}',
             recordId,adminId,
             function(result,event){
                 console.log(result);
@@ -1695,7 +1695,7 @@ const generateErrorMsg = (message,type)=>
             const parent = e.target.closest('.employee_cards');
             const recordId = parent.querySelector('.empId').value;
             console.log("EmpID", recordId);
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.pdfData}',recordId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.pdfData}',recordId,
             function(result,event){
                 console.log(result);
                 printPDF(result);

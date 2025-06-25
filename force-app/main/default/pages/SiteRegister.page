@@ -1,4 +1,4 @@
-<apex:page id="Registration" showHeader="false" controller="SiteRegisterController" title="{!$Label.site.register}">
+<apex:page id="Registration" showHeader="false" controller="EO_SiteRegisterController" title="{!$Label.site.register}">
   <apex:composition template="{!$Site.Template}">
     <apex:define name="body">  
       <center>

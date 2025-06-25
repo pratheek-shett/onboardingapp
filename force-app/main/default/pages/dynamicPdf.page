@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="dynamicPdfController">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="EO_DynamicPdfController">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -472,7 +472,7 @@
         e.preventDefault();
 
         let empId = 'a025h00000t9Hj2AAE';
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.dynamicPdfController.pdfData}',empId,
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_DynamicPdfController.pdfData}',empId,
         function(result,event){
             console.log('result');
             console.log(result);

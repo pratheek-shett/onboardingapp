@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="adminController">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="EO_AdminController">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -650,7 +650,7 @@
         console.log('hello');
         
 
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.addEmployee}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.addEmployee}',
         emailId,password,
         function(result,event){
             console.log(result); 
@@ -739,7 +739,7 @@
             let password=parent.querySelector('.empPassword').value;
             console.log(recordId);
             parent.remove();
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.deleteEmployee}',recordId,function(result,event){
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.deleteEmployee}',recordId,function(result,event){
             console.log(result);
             });
         }
@@ -757,7 +757,7 @@
             console.log('Verify Button');
             document.querySelector('.VerifyDetails').style.display='flex';
             document.querySelector('.saveChecklist').value=empId;
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.fetchCheckList}',empId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.fetchCheckList}',empId,
                 function(result,event)
                 {
                     console.log(result);
@@ -798,7 +798,7 @@
     window.onload = (event) => {
             console.log("page is fully loaded");
             document.querySelector('.employee_cards').remove();  
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.fetchEmployees}',function(result,event){
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.fetchEmployees}',function(result,event){
 
             console.log(result);
            
@@ -888,7 +888,7 @@ const generateErrorMsg = (message,type)=>
 
 
     function exportToExcel(){
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.exportToExcel}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.exportToExcel}',
                                                   function(result,status){
                                                     console.log(result);
                                                    //console.log(result[0]['JK_EducationalQualifications__r'][0].EQ_degree__c);
@@ -1109,7 +1109,7 @@ const generateErrorMsg = (message,type)=>
         const codeOfConduct = document.querySelector('#Emp_isCodeOfConductAvailable__c').checked;
         const codeOfConductAdmin = document.querySelector('#Emp_isCodeOfConductAvailable_Admin__c').checked;
 
-        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.saveCheckList}',
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.saveCheckList}',
             recordId,resume,resumeAdmin,photo,photoAdmin,eduCert,eduCertAdmin,salarySlip,salarySlipAdmin,
             panCard,panCardAdmin,addressProof,addressProofAdmin,pfNomination,pfNominationAdmin,gratuityForm,
             gratuityFormAdmin,signedOfferLetter,signedOfferLetterAdmin,expLetter,expLetterAdmin,bankStatement,
@@ -1133,7 +1133,7 @@ const generateErrorMsg = (message,type)=>
             const parent = e.target.closest('.employee_cards');
             const recordId = parent.querySelector('.empId').value;
             console.log("EmpID", recordId);
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.adminController.pdfData}',recordId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_AdminController.pdfData}',recordId,
             function(result,event){
                 pdfTable(result);
             });

@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="checkListController">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="EO_CheckListController">
        
     <head>
     <style>
@@ -201,7 +201,7 @@
                 let isCodeOfConductAvailable=document.getElementById('code_of_conduct').checked;
                 console.log(isCodeOfConductAvailable);
             
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.checkListController.saveCheckList}',empId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_CheckListController.saveCheckList}',empId,
             isResumeAvailable,isPhotoAvailable, isEduCertificatesAvailable,isSalarySlipAvailable,isPanCardAvailable,isAddressProofAvailable,
             isProvidentFormAvailable,isGratuityFormAvailable,isOfferLetterAvailable,isExperienceLetterAvailable,
             isBankStatementAvailable,isBloodGroupAvailable,isCodeOfConductAvailable
@@ -216,7 +216,7 @@
             
             function fetchCheckList(){
             
-            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.checkListController.fetchCheckList}',empId,
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_CheckListController.fetchCheckList}',empId,
             function(result,event){
                 console.log(result);
             if(result==null) return;

@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="mainController">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" docType="html-5.0" controller="EO_MainController">
    <html lang="en">
       <head>
          <meta charset="UTF-8" />
@@ -2762,7 +2762,7 @@ ul li .active .uil{
                 {
                   var previewStageReached;
 
-                  Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchPreviewStatus}',empId,function(result,event){
+                  Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchPreviewStatus}',empId,function(result,event){
 
                     previewStageReached=result;
                   })
@@ -2849,7 +2849,7 @@ ul li .active .uil{
                     const Id = parent.querySelector("#Kyc_Id").value;
                     console.log(Id);
                     if (Id != 'new') {
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.deleteKyc}', Id,
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.deleteKyc}', Id,
                             function(result, event) {
                             }
                         );
@@ -2992,7 +2992,7 @@ ul li .active .uil{
                     const id = parent.querySelector('#Fi_id');                   
                      if (!(id.value == 'new')) {                      
                           Visualforce.remoting.Manager.invokeAction(
-                            '{!$RemoteAction.mainController.deleteFamilyInfoRecord}',
+                            '{!$RemoteAction.EO_MainController.deleteFamilyInfoRecord}',
                             id.value, empId,
                             function(result, event) {
                                 if(event.statusCode === 200)
@@ -3081,7 +3081,7 @@ ul li .active .uil{
                     const Id = parent.querySelector("#EQId").value;
             
                     if (Id != 'new') {
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.deleteEducationalDetail}',
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.deleteEducationalDetail}',
                             Id,
                             function(result, event) {
                             });
@@ -3170,7 +3170,7 @@ ul li .active .uil{
                     let recordId = parent.querySelector("#WE_id");
                     if (!(recordId.value == 'new')) {
                         Visualforce.remoting.Manager.invokeAction(
-                            '{!$RemoteAction.mainController.deleteWorkExpData}',
+                            '{!$RemoteAction.EO_MainController.deleteWorkExpData}',
                             recordId.value, empId,
                             function(result, event) {});
                     }
@@ -3290,7 +3290,7 @@ ul li .active .uil{
                             let isCodeOfConductAvailable=document.getElementById('code_of_conduct').checked;
                         
                         
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.saveCheckList}',empId,
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.saveCheckList}',empId,
                         isResumeAvailable,isPhotoAvailable, isEduCertificatesAvailable,isSalarySlipAvailable,isPanCardAvailable,isAddressProofAvailable,
                         isProvidentFormAvailable,isGratuityFormAvailable,isOfferLetterAvailable,isExperienceLetterAvailable,
                         isBankStatementAvailable,isBloodGroupAvailable,isCodeOfConductAvailable
@@ -3309,7 +3309,7 @@ ul li .active .uil{
 
                         // update stage 
                         let currentSection='Checklist-Detail'
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.updateStage}',empId,currentSection,
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.updateStage}',empId,currentSection,
                         function(result,event)
                         {
                             console.log('updating the stage')
@@ -3359,7 +3359,7 @@ ul li .active .uil{
             const fetchEmployeeInfo = () => {
                 let empHtml=``;
                 console.log(empId);
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchEmployee}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchEmployee}', empId,
                     function(result, event) { 
                         console.log("the result is "+result); 
                        
@@ -3413,7 +3413,7 @@ ul li .active .uil{
                         }
                 });
 
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchEmergencyContact}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchEmergencyContact}', empId,
                     function(result, event) {
                         empHtml += `
                         <div class="input_div">
@@ -3444,7 +3444,7 @@ ul li .active .uil{
                     }
                 );
 
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchStage}',empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchStage}',empId,
                 function(result,event){
                     console.log(result)
                     console.log(result)
@@ -3522,7 +3522,7 @@ ul li .active .uil{
             //fetching kyc info
             const fetchKycInfo = () => {
                 let thereareresults=false;
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchKyc}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchKyc}', empId,
                     function(result, event) {
                         const parent = document.querySelector('.kyc_form');
                         const allInputDivGroups = parent.querySelectorAll('.input_div_group');
@@ -3634,7 +3634,7 @@ ul li .active .uil{
             //fetching family info
             const fetchFamilyInfo = () => {
                 Visualforce.remoting.Manager.invokeAction(
-                    '{!$RemoteAction.mainController.getFamilyInfo}',
+                    '{!$RemoteAction.EO_MainController.getFamilyInfo}',
                     empId,
                     function(result, event) {                        
                         const parent = document.querySelector('.family_form');
@@ -3694,7 +3694,7 @@ ul li .active .uil{
 
             //fetching educational info
             const fetchEducationalInfo = () => {
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchEducationalQualificationData}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchEducationalQualificationData}', empId,
                     function(result, event) {
                         const parent = document.querySelector('.education_form');
                         parent.querySelectorAll('.input_div_group').forEach((e)=>{e.remove()});
@@ -3796,7 +3796,7 @@ ul li .active .uil{
 
             //fetchimg work info
             const fetchWorkExpInfo = () => {
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchWorkExpData}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchWorkExpData}', empId,
                     function(result, event) {                        
                         document.querySelector('.buffer').style.display='none';
                         const parent = document.querySelector('.workexp_form');
@@ -3846,7 +3846,7 @@ ul li .active .uil{
             }
             
             const fetchDocumentCheckList=()=>{
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchCheckList}',empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchCheckList}',empId,
                 function(result,event){                
                 if(result==null) return;
                 document.getElementById('resume').checked=result.Emp_isResumeAvailable__c?result.Emp_isResumeAvailable__c:'';
@@ -3876,7 +3876,7 @@ ul li .active .uil{
 
                 let empInfoPreview=``;
                 console.log('empid',empId);
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchEmployee}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchEmployee}', empId,
                     function(result, event){
                         console.log(result);
                         empInfoPreview = `
@@ -4023,7 +4023,7 @@ ul li .active .uil{
                     }
                 );
 
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchEmergencyContact}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchEmergencyContact}', empId,
                     function(result, event) {
                         empInfoPreview += `
                             <div class="input_div">
@@ -4054,7 +4054,7 @@ ul li .active .uil{
                         <button class="editBtnKycInfo" data-goto='kyc_section'>Edit</button>
                     </div>
                 </div>`;
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchKyc}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchKyc}', empId,
                     function(result, event) {
                         result.forEach((e) => {
                                 const html = `<div class="input_div_group">
@@ -4110,7 +4110,7 @@ ul li .active .uil{
                     </div>
                 </div>`;
                 Visualforce.remoting.Manager.invokeAction(
-                    '{!$RemoteAction.mainController.getFamilyInfo}', empId,
+                    '{!$RemoteAction.EO_MainController.getFamilyInfo}', empId,
                     function(result, event) {
                         //console.log(result);
                         result.forEach((index) => {
@@ -4160,7 +4160,7 @@ ul li .active .uil{
                         <button class="editBtnEducationinfo" data-goto='education_section'>Edit</button>
                     </div>
                 </div>`;
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchEducationalQualificationData}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchEducationalQualificationData}', empId,
                     function(result, event) {
                         if (result.length <= 0) return;
                             result.forEach(record => {
@@ -4250,7 +4250,7 @@ ul li .active .uil{
                             <button class="editBtnWorkInfo" data-goto='workexp_section'>Edit</button>
                         </div>
                     </div>`;
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchWorkExpData}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchWorkExpData}', empId,
                                 function(result, event) {
                                     let html=``;
                                     if(result.length<=0){
@@ -4563,7 +4563,7 @@ ul li .active .uil{
             const FsubmitBtn=document.querySelector('.FsubmitBtn');
             console.log('button clicked..');
            
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.FinalSubmission}',empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.FinalSubmission}',empId,
                 function(result,event){
                     console.log(result);
                     document.querySelector('.previewEmployeeDetail').classList.add('is-done');
@@ -4572,7 +4572,7 @@ ul li .active .uil{
                 });
                 // update stage 
                 let currentSection='Preview-Detail'
-                    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.updateStage}',empId,currentSection,
+                    Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.updateStage}',empId,currentSection,
                         function(result,event){
                                 console.log('updating the stage')
                                 console.log('Current Section ',currentSection);
@@ -4588,7 +4588,7 @@ ul li .active .uil{
 
             // verification logic for kyc
             const verifyKyc = ()=>{
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchKyc}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchKyc}', empId,
                     function(result, event) {
                         result.forEach((index)=>{
                             let text =`missing `;
@@ -4620,7 +4620,7 @@ ul li .active .uil{
 
             const verifyFamily =()=>{
                 Visualforce.remoting.Manager.invokeAction(
-                    '{!$RemoteAction.mainController.getFamilyInfo}',
+                    '{!$RemoteAction.EO_MainController.getFamilyInfo}',
                     empId,
                     function(result, event) {
                         result.forEach((index)=>{
@@ -4646,7 +4646,7 @@ ul li .active .uil{
             }
 
             const verifyEducation = ()=>{
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.fetchEducationalQualificationData}', empId,
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.fetchEducationalQualificationData}', empId,
                     function(result, event) {
                         result.forEach((index)=>{
                             let text =`missing `;
@@ -5008,7 +5008,7 @@ ul li .active .uil{
                        // buffer.style.display='block';
                         isInputChanged[activeMenuSection]=false; 
 
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.saveEmployeefunction}',
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.saveEmployeefunction}',
                             Emp_firstName__c.value, Emp_midName__c.value, Emp_lastName__c.value,
                             Emp_dateOfBirth__c.value, Emp_maritalStatus__c.value, Emp_gender__c.value, 
                             Emp_bloodGroup__c.value, Emp_nationality__c.value, Emp_emailId__c.value, 
@@ -5025,14 +5025,14 @@ ul li .active .uil{
                                 }
                         );
 
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.saveEmergencyContactController}',
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.saveEmergencyContactController}',
                         empId, Emp_Emergency__c.value, Emp_EmergencyContact_Relation__c.value, Emp_EmergencyContact_Phone__c.value,
                             function(result, event) {
                                 console.log("saved the updated values of emergency info");
                             }
                         );
 
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.saveCommAddress}',
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.saveCommAddress}',
                             Emp_commonAddressCheck__c, Emp_commAddress__c,
                             Emp_commCity__c, Emp_commState__c, Emp_commZipCode__c,
                             empId,
@@ -5043,7 +5043,7 @@ ul li .active .uil{
                         ); 
 
                         let currentSection='Employee-Detail'
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.updateStage}',empId,currentSection,
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.updateStage}',empId,currentSection,
                         function(result,event){
                             console.log('updating the stage')
                             let currentSection='Employee-Detail'
@@ -5166,7 +5166,7 @@ ul li .active .uil{
                     if(clearedValidation)
                     {
                         Visualforce.remoting.Manager.invokeAction(
-                        '{!$RemoteAction.mainController.insertUpdateWorkDataBulk}',
+                        '{!$RemoteAction.EO_MainController.insertUpdateWorkDataBulk}',
                         jsonFormat,
                         function(result, event) {
                         if(event.statusCode == 200)
@@ -5182,7 +5182,7 @@ ul li .active .uil{
 
                     // update stage 
                     let currentSection='Work-Detail'
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.updateStage}',empId,currentSection,function(result,event){
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.updateStage}',empId,currentSection,function(result,event){
 
                             console.log('updating the stage')
                             console.log('Current Section ',currentSection);
@@ -5338,7 +5338,7 @@ ul li .active .uil{
                     {
                        // buffer.style.display='block';
                         isInputChanged[activeMenuSection]=false;
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.insertUpdateKycBulk}',
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.insertUpdateKycBulk}',
                         jsonFormat,
                         function(result, event) {
                             if(event.statusCode == 200)
@@ -5357,7 +5357,7 @@ ul li .active .uil{
 
                         // update stage 
                         let currentSection='KYC-Detail'
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.updateStage}',empId,currentSection,function(result,event){
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.updateStage}',empId,currentSection,function(result,event){
 
                             console.log('updating the stage')
                             let currentSection='Employee-Detail'
@@ -5480,7 +5480,7 @@ ul li .active .uil{
                        // buffer.style.display='block';
                         isInputChanged[activeMenuSection]=false;
                         Visualforce.remoting.Manager.invokeAction(
-                         '{!$RemoteAction.mainController.insertUpdateFamilyInfoBulk}',
+                         '{!$RemoteAction.EO_MainController.insertUpdateFamilyInfoBulk}',
                             jsonFormat,
                          function(result, event) {
                              if(event.statusCode == 200)
@@ -5497,7 +5497,7 @@ ul li .active .uil{
 
                         // update stage 
                         let currentSection='Family-Detail'
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.updateStage}',empId,currentSection,
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.updateStage}',empId,currentSection,
                         function(result,event){
                             console.log('updating the stage')
                             console.log('Current Section ',currentSection);
@@ -5631,7 +5631,7 @@ ul li .active .uil{
                     const jsonFormat = JSON.stringify(arrayOfAllEducationInputDivGroups);
                     if(clearedValidation)
                     {
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.saveOrUpdateEducationalDetailBulk}',
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.saveOrUpdateEducationalDetailBulk}',
                         jsonFormat,       
                         function(result, event) {
                             if(event.statusCode == 200)
@@ -5648,7 +5648,7 @@ ul li .active .uil{
 
                         // update stage 
                         let currentSection='Educational-Detail'
-                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.mainController.updateStage}',empId,currentSection,
+                        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_MainController.updateStage}',empId,currentSection,
                         function(result,event){
                             console.log('updating the stage')
                             console.log('Current Section ',currentSection);

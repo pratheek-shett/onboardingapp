@@ -1,9 +1,9 @@
-<apex:page controller="ExportController">
+<apex:page controller="EO_ExportController">
     <html>
         <head>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
             <script>
-                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ExportController.showResults}', function(result, event) {
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.EO_ExportController.showResults}', function(result, event) {
                     console.log(result);
 
                     // Create HTML table
